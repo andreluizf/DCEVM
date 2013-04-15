@@ -46,9 +46,9 @@ public class Downloader {
                 throw new IOException("Failed to open connection");
             }
 
-//            pi.setText(IdeBundle.message("progress.downloading.plugin", "DCEVM"));
+            pi.setText("Downloading DCEVM jre");
             final int contentLength = connection.getContentLength();
-//            pi.setIndeterminate(contentLength == -1);
+            pi.setIndeterminate(contentLength == -1);
 
             try {
                 final OutputStream fos = new BufferedOutputStream(new FileOutputStream(file, false));

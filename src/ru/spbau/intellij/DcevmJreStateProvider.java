@@ -23,25 +23,6 @@ public class DcevmJreStateProvider implements ApplicationComponent {
     }
 
     public void initComponent() {
-        dcevmReady = validateDcevmJre();
-        if (!dcevmReady) {
-            int result = Messages.showYesNoDialog("Download DCEVM Jre?", "DCEVM plugin", null);
-            if (result == 0) {
-                System.out.println("Starting download");
-                ApplicationManager.getApplication().invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        Downloader dcevmLoader = new Downloader("/home/user/");
-                        ProgressIndicator pi = new EmptyProgressIndicator();
-                        try {
-                            dcevmLoader.downloadDcevm(pi);
-                        } catch (IOException e) {
-                            Messages.showErrorDialog(e.getMessage(), "IO Error during downloading");
-                        }
-                    }
-                });
-            }
-        }
     }
 
     public void disposeComponent() {

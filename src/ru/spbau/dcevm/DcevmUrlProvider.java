@@ -6,6 +6,8 @@ package ru.spbau.dcevm;
  * Time: 7:21 PM
  */
 public class DcevmUrlProvider {
+    private DcevmUrlProvider() {
+    }
 
     public static String getLinuxUrl() {
         return "https://github.com/sweetybanana/DCEVM/raw/master/lib/jre.zip";

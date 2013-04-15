@@ -41,5 +41,6 @@
 
   <extensions defaultExtensionNs="com.intellij">
     <!-- Add your extensions here -->
+    <postStartupActivity implementation="ru.spbau.intellij.Starter"></postStartupActivity>
   </extensions>
 </idea-plugin>
