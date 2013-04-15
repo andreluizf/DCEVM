@@ -1,9 +1,5 @@
-package ru.spbau.intellij;
+package ru.spbau.launch;
 
-import com.intellij.execution.application.ApplicationConfiguration;
-import com.intellij.execution.application.ApplicationConfigurationType;
-import com.intellij.execution.configurations.ConfigurationFactory;
-import com.intellij.execution.impl.RunManagerImpl;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.progress.Task;
@@ -17,34 +13,45 @@ import com.intellij.openapi.ui.popup.JBPopupFactory;
 import com.intellij.openapi.wm.StatusBar;
 import com.intellij.openapi.wm.WindowManager;
 import com.intellij.ui.awt.RelativePoint;
-import ru.spbau.dcevm.Downloader;
-import ru.spbau.host.LocalUserAddressProvider;
+import ru.spbau.install.download.Downloader;
+import ru.spbau.install.info.InfoProvider;
 
 import java.io.IOException;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * User: yarik
  * Date: 4/15/13
  * Time: 3:54 AM
  */
-public class Starter implements StartupActivity {
-
-    private static final AtomicBoolean dcevmDownloadInProcess = new AtomicBoolean(false);
+public class DcevmStartup implements StartupActivity {
 
     @Override
     public void runActivity(final Project project) {
+        ApplicationManager.getApplication().invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                JreStateProvider jreState = ApplicationManager.getApplication().getComponent(JreStateProvider.class);
 
+                if (!jreState.isReady()) {
+                    downloadAndPatchOpenProjects(project);
+                }
+            }
+        });
+    }
+
+    private void downloadAndPatchOpenProjects(final Project project) {
         int result = Messages.showYesNoDialog("Download dcevm?", "DCEVM plugin", null);
         if (result == 0) {
             new Task.Backgroundable(project, "DCEVM plugin", true) {
                 @Override
                 public void run(ProgressIndicator indicator) {
                     indicator.setText("Downloading DCEVM jre");
-                    Downloader dcevmLoader = new Downloader(LocalUserAddressProvider.getDcevmHomeAddress());
+                    Downloader dcevmLoader = new Downloader(InfoProvider.getInstallDirectory());
                     try {
                         dcevmLoader.downloadDcevm(indicator);
                     } catch (IOException e) {
+
+                        //TODO: from what thread?
                         StatusBar statusBar = WindowManager.getInstance().getStatusBar(project);
                         JBPopupFactory.getInstance()
                                 .createHtmlTextBalloonBuilder("<html>DCEVM download:<br>IO Error during downloading</html>", MessageType.ERROR, null)
@@ -52,6 +59,7 @@ public class Starter implements StartupActivity {
                                 .createBalloon()
                                 .show(RelativePoint.getCenterOf(statusBar.getComponent()),
                                         Balloon.Position.atRight);
+
                     }
                 }
 
@@ -60,36 +68,25 @@ public class Starter implements StartupActivity {
                     ApplicationManager.getApplication().runWriteAction(new Runnable() {
                         @Override
                         public void run() {
-                            Project[] openProjects = ProjectManager.getInstance().getOpenProjects();
-                            for (Project project: openProjects) {
-                                changeTemplateAlterJre(project, LocalUserAddressProvider.getDcevmHomeAddress(), true);
-                            }
+                            patchOpenProjects();
                         }
                     });
+                    patchOpenProjects();
                 }
 
                 @Override
                 public void onCancel() {
-                    // delete DCEVM home directory hoya!
+                    //TODO: delete DCEVM home directory hoya!
                 }
 
             }.setCancelText("Stop downloading").queue();
         }
     }
 
-    private void changeTemplateAlterJre(Project project, String alterJrePath, boolean enabled) {
-        RunManagerImpl runManager = (RunManagerImpl)RunManagerImpl.getInstance(project);
-        ConfigurationFactory factory = ApplicationConfigurationType.getInstance().getConfigurationFactories()[0];
-        ApplicationConfiguration templateApplicationConfig = (ApplicationConfiguration)
-                runManager.getConfigurationTemplate(factory).getConfiguration();
-        templateApplicationConfig.ALTERNATIVE_JRE_PATH = alterJrePath;
-        templateApplicationConfig.ALTERNATIVE_JRE_PATH_ENABLED = enabled;
+    private void patchOpenProjects() {
+        Project[] openProjects = ProjectManager.getInstance().getOpenProjects();
+        for (Project project: openProjects) {
+            TemplateAlterJreSettingsReplacer.replaceWith(project, InfoProvider.getInstallDirectory(), true);
+        }
     }
-
-    private boolean isDcevmInstalled() {
-
-    }
-
-
-
 }

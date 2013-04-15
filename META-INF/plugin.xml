@@ -21,18 +21,21 @@
   <!-- please see http://confluence.jetbrains.net/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
        on how to target different products -->
   <!-- uncomment to enable plugin in all products
-  <depends>com.intellij.modules.lang</depends>
+  <depends>com.launch.modules.lang</depends>
   -->
 
   <application-components>
     <!-- Add your application components here -->
       <component>
-          <implementation-class>ru.spbau.intellij.DcevmJreStateProvider</implementation-class>
+          <implementation-class>ru.spbau.launch.JreStateProvider</implementation-class>
       </component>
   </application-components>
 
   <project-components>
     <!-- Add your project components here -->
+      <component>
+          <implementation-class>ru.spbau.launch.TemplateAlterJreSettingsReplacer</implementation-class>
+      </component>
   </project-components>
 
   <actions>
@@ -41,6 +44,6 @@
 
   <extensions defaultExtensionNs="com.intellij">
     <!-- Add your extensions here -->
-    <postStartupActivity implementation="ru.spbau.intellij.Starter"></postStartupActivity>
+    <postStartupActivity implementation="ru.spbau.launch.DcevmStartup"></postStartupActivity>
   </extensions>
 </idea-plugin>
