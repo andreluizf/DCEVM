@@ -1,15 +1,8 @@
 package ru.spbau.intellij;
 
-import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.components.ApplicationComponent;
-import com.intellij.openapi.progress.EmptyProgressIndicator;
-import com.intellij.openapi.progress.ProgressIndicator;
-import com.intellij.openapi.progress.ProgressManager;
-import com.intellij.openapi.ui.Messages;
 import org.jetbrains.annotations.NotNull;
-import ru.spbau.dcevm.Downloader;
 
-import java.io.IOException;
 
 /**
  * User: user
