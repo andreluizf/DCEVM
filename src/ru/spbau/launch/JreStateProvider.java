@@ -18,12 +18,8 @@ public class JreStateProvider implements ApplicationComponent {
     }
     public void initComponent() {
         isReady = PropertiesComponent.getInstance().getBoolean(DCEVM_DOWNLOAD_STATE, false);
-
-        //TODO delete
-        System.out.println("DCEVM READY " + isReady);
     }
     public void disposeComponent() {
-        System.out.println(getClass().toString() + " disposed...");
     }
     @NotNull
     public String getComponentName() {

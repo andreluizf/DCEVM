@@ -1,22 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b1d1ce3f-7464-4278-b589-2cfeb18f64f4" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ru/spbau/install/info/InfoProvider.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ru/spbau/install/info/specific/JreHomePath.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ru/spbau/launch/JreStateProvider.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ru/spbau/launch/TemplateAlterJreSettingsReplacer.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/ru/spbau/host/LocalUserAddressProvider.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/ru/spbau/intellij/DcevmJreStateProvider.java" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/ru/spbau/dcevm/DcevmUrlProvider.java" afterPath="$PROJECT_DIR$/src/ru/spbau/install/info/specific/JreUrls.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/ru/spbau/dcevm/Downloader.java" afterPath="$PROJECT_DIR$/src/ru/spbau/install/download/Downloader.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/ru/spbau/intellij/Starter.java" afterPath="$PROJECT_DIR$/src/ru/spbau/launch/DcevmStartup.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/META-INF/plugin.xml" afterPath="$PROJECT_DIR$/META-INF/plugin.xml" />
+    <list default="true" id="b1d1ce3f-7464-4278-b589-2cfeb18f64f4" name="Default" comment="saving info about jre download status, download check on startup">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ru/spbau/launch/JreStateProvider.java" afterPath="$PROJECT_DIR$/src/ru/spbau/launch/JreStateProvider.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ru/spbau/launch/TemplateAlterJreSettingsReplacer.java" afterPath="$PROJECT_DIR$/src/ru/spbau/launch/TemplateAlterJreSettingsReplacer.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="DCEVM.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="b1d1ce3f-7464-4278-b589-2cfeb18f64f4" time="1366067902120" ignored="false" />
+    <file path="/Dummy.txt" changelist="b1d1ce3f-7464-4278-b589-2cfeb18f64f4" time="1366068055436" ignored="false" />
     <file path="/Starter.java" changelist="b1d1ce3f-7464-4278-b589-2cfeb18f64f4" time="1366045448609" ignored="false" />
     <file path="/ChangeTemplateJre.java" changelist="b1d1ce3f-7464-4278-b589-2cfeb18f64f4" time="1366063639575" ignored="false" />
     <file path="/DcevmInstallManager.java" changelist="b1d1ce3f-7464-4278-b589-2cfeb18f64f4" time="1366051916667" ignored="false" />
@@ -115,10 +107,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="JreStateProvider.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="JreStateProvider.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ru/spbau/launch/JreStateProvider.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="39" column="16" selection-start="1109" selection-end="1109" vertical-scroll-proportion="0.0">
+            <state line="21" column="4" selection-start="594" selection-end="594" vertical-scroll-proportion="0.30555555">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -129,16 +121,16 @@
       <file leaf-file-name="TemplateAlterJreSettingsReplacer.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ru/spbau/launch/TemplateAlterJreSettingsReplacer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="50" column="39" selection-start="1608" selection-end="1608" vertical-scroll-proportion="0.0">
+            <state line="49" column="61" selection-start="1656" selection-end="1656" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Downloader.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Downloader.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ru/spbau/install/download/Downloader.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="0" selection-start="504" selection-end="504" vertical-scroll-proportion="0.33333334">
+            <state line="14" column="0" selection-start="504" selection-end="504" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -244,12 +236,12 @@
         <option value="$PROJECT_DIR$/src/ru/spbau/launch/TemplateJreReplacer.java" />
         <option value="$PROJECT_DIR$/src/ru/spbau/install/info/JreUrls.java" />
         <option value="$PROJECT_DIR$/src/ru/spbau/install/info/specific/JreHomePath.java" />
-        <option value="$PROJECT_DIR$/src/ru/spbau/launch/TemplateAlterJreSettingsReplacer.java" />
         <option value="$PROJECT_DIR$/src/ru/spbau/install/info/InfoProvider.java" />
         <option value="$PROJECT_DIR$/src/ru/spbau/launch/DcevmStarter.java" />
-        <option value="$PROJECT_DIR$/src/ru/spbau/launch/JreStateProvider.java" />
         <option value="$PROJECT_DIR$/src/ru/spbau/launch/DcevmStartup.java" />
         <option value="$PROJECT_DIR$/src/ru/spbau/install/download/Downloader.java" />
+        <option value="$PROJECT_DIR$/src/ru/spbau/launch/TemplateAlterJreSettingsReplacer.java" />
+        <option value="$PROJECT_DIR$/src/ru/spbau/launch/JreStateProvider.java" />
       </list>
     </option>
   </component>
@@ -361,36 +353,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="install" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="info" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DCEVM" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DCEVM" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="spbau" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="install" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="download" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -549,6 +511,11 @@
       <created>1366043441655</created>
       <updated>1366043441655</updated>
     </task>
+    <task id="LOCAL-00001" summary="saving info about jre download status, download check on startup">
+      <created>1366067949464</created>
+      <updated>1366067949464</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -739,10 +706,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ru/spbau/launch/TemplateAlterJreSettingsReplacer.java">
+    <entry file="file://$PROJECT_DIR$/src/ru/spbau/install/info/InfoProvider.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="39" selection-start="1608" selection-end="1608" vertical-scroll-proportion="0.0">
-          <folding />
+        <state line="26" column="15" selection-start="655" selection-end="655" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ru/spbau/install/download/Downloader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="0" selection-start="504" selection-end="504" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -758,27 +736,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/ru/spbau/launch/TemplateAlterJreSettingsReplacer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="49" column="61" selection-start="1656" selection-end="1656" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/ru/spbau/launch/JreStateProvider.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="16" selection-start="1109" selection-end="1109" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ru/spbau/install/info/InfoProvider.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="15" selection-start="655" selection-end="655" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ru/spbau/install/download/Downloader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="0" selection-start="504" selection-end="504" vertical-scroll-proportion="0.33333334">
+        <state line="21" column="4" selection-start="594" selection-end="594" vertical-scroll-proportion="0.30555555">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

@@ -38,11 +38,9 @@ public class TemplateAlterJreSettingsReplacer implements ProjectComponent {
     }
 
     public void projectOpened() {
-        // called when project is opened
     }
 
     public void projectClosed() {
-        // called when project is being closed
     }
 
 
