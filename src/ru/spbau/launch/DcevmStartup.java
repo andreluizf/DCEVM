@@ -24,6 +24,12 @@ import java.io.IOException;
  * Time: 3:54 AM
  */
 public class DcevmStartup implements StartupActivity {
+    private static final String DIALOG_TITLE = "DCEVM plugin";
+    private static final String DIALOG_MESSAGE = "Download dcevm?";
+    private static final String ERROR_MESSAGE = "<html>DCEVM download:<br>IO Error during downloading</html>";
+    private static final String INDICATOR_TEXT = "Downloading DCEVM jre";
+    private static final String CANCEL_TEXT = "Stop downloading";
+
 
     @Override
     public void runActivity(final Project project) {
@@ -40,12 +46,12 @@ public class DcevmStartup implements StartupActivity {
     }
 
     private void downloadAndPatchOpenProjects(final Project project) {
-        int result = Messages.showYesNoDialog("Download dcevm?", "DCEVM plugin", null);
+        int result = Messages.showYesNoDialog(DIALOG_MESSAGE, DIALOG_TITLE, null);
         if (result == 0) {
-            new Task.Backgroundable(project, "DCEVM plugin", true) {
+            new Task.Backgroundable(project, DIALOG_TITLE, true) {
                 @Override
                 public void run(ProgressIndicator indicator) {
-                    indicator.setText("Downloading DCEVM jre");
+                    indicator.setText(INDICATOR_TEXT);
                     Downloader dcevmLoader = new Downloader(InfoProvider.getInstallDirectory());
                     try {
                         dcevmLoader.downloadDcevm(indicator);
@@ -54,7 +60,7 @@ public class DcevmStartup implements StartupActivity {
                         //TODO: from what thread?
                         StatusBar statusBar = WindowManager.getInstance().getStatusBar(project);
                         JBPopupFactory.getInstance()
-                                .createHtmlTextBalloonBuilder("<html>DCEVM download:<br>IO Error during downloading</html>", MessageType.ERROR, null)
+                                .createHtmlTextBalloonBuilder(ERROR_MESSAGE, MessageType.ERROR, null)
                                 .setFadeoutTime(7500)
                                 .createBalloon()
                                 .show(RelativePoint.getCenterOf(statusBar.getComponent()),
@@ -79,7 +85,7 @@ public class DcevmStartup implements StartupActivity {
                     //TODO: delete DCEVM home directory hoya!
                 }
 
-            }.setCancelText("Stop downloading").queue();
+            }.setCancelText(CANCEL_TEXT).queue();
         }
     }
 
