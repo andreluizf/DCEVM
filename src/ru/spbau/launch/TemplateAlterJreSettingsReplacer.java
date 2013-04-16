@@ -23,14 +23,21 @@ public class TemplateAlterJreSettingsReplacer implements ProjectComponent {
         this.project = project;
     }
 
+    //executed by ApplicationImpl pooled thread
     public void initComponent() {
         JreStateProvider jreState = ApplicationManager.getApplication().getComponent(JreStateProvider.class);
         if (jreState.isReady()) {
-
-            //TODO or ApplicationManager -> invokeLater (WriteAction ?)
-            //TODO what thread is executing this
-
-            replaceWith(project, InfoProvider.getInstallDirectory(), true);
+            ApplicationManager.getApplication().invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    ApplicationManager.getApplication().runWriteAction(new Runnable() {
+                        @Override
+                        public void run() {
+                            replaceWith(project, InfoProvider.getInstallDirectory(), true);
+                        }
+                    });
+                }
+            });
         }
     }
 

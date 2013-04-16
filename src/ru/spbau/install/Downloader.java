@@ -1,4 +1,4 @@
-package ru.spbau.install.download;
+package ru.spbau.install;
 
 import com.intellij.ide.IdeBundle;
 import com.intellij.openapi.application.ApplicationManager;
