@@ -17,10 +17,12 @@ public class JreStateProvider implements ApplicationComponent {
 
     public JreStateProvider() {
     }
+
+    //executed in AWT Event thread
     public void initComponent() {
-        //TODO check if it needs to be wrapped to readAction
         isReady = PropertiesComponent.getInstance().getBoolean(DCEVM_DOWNLOAD_STATE, false);
     }
+
     public void disposeComponent() {
     }
     @NotNull
@@ -31,6 +33,8 @@ public class JreStateProvider implements ApplicationComponent {
     public boolean isReady() {
         return isReady;
     }
+
+    //It could be executed from everywhere
     public void setReady() {
         isReady = true;
         saveState();

@@ -1,6 +1,7 @@
 package ru.spbau.launch;
 
 import com.intellij.openapi.application.ApplicationManager;
+import com.intellij.openapi.progress.ProcessCanceledException;
 import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.progress.Task;
 import com.intellij.openapi.project.Project;
@@ -10,9 +11,11 @@ import com.intellij.openapi.ui.MessageType;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.ui.popup.Balloon;
 import com.intellij.openapi.ui.popup.JBPopupFactory;
+import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.openapi.wm.StatusBar;
 import com.intellij.openapi.wm.WindowManager;
 import com.intellij.ui.awt.RelativePoint;
+import org.jetbrains.annotations.NotNull;
 import ru.spbau.install.Downloader;
 import ru.spbau.install.info.InfoProvider;
 
@@ -38,6 +41,7 @@ public class DcevmStartup implements StartupActivity {
     public void runActivity(final Project project) {
         JreStateProvider jreState = ApplicationManager.getApplication().getComponent(JreStateProvider.class);
 
+        //for testing purposes only
         jreState.setUnready();
 
         if (!jreState.isReady()) {
@@ -48,6 +52,7 @@ public class DcevmStartup implements StartupActivity {
     private void downloadAndPatchOpenProjects(final Project project) {
         int result = Messages.showYesNoDialog(DIALOG_MESSAGE, DIALOG_TITLE, null);
         if (result == 0) {
+            //It's executed in a background thread
             new Task.Backgroundable(project, DIALOG_TITLE, true) {
                 final JreStateProvider jreState = ApplicationManager.getApplication().getComponent(JreStateProvider.class);
 
@@ -55,20 +60,33 @@ public class DcevmStartup implements StartupActivity {
                 public void run(ProgressIndicator indicator) {
                     indicator.setText(INDICATOR_TEXT);
                     try {
+
+                        @NotNull File dcevmRoot = new File(InfoProvider.getInstallDirectory());
+                        FileUtil.createDirectory(dcevmRoot);
                         File downloadedFile = Downloader.downloadDcevm(InfoProvider.getInstallDirectory(), indicator);
                         jreState.setReady();
+                        //TODO delete it
+                        System.out.println("DCEVM downloaded into: " + InfoProvider.getInstallDirectory());
 
-                        //TODO unzip it :)
+                        //TODO unzip downloadedFile
 
                     } catch (IOException e) {
-                        //TODO: from what thread?
-                        StatusBar statusBar = WindowManager.getInstance().getStatusBar(project);
-                        JBPopupFactory.getInstance()
-                                .createHtmlTextBalloonBuilder(ERROR_MESSAGE, MessageType.ERROR, null)
-                                .setFadeoutTime(7500)
-                                .createBalloon()
-                                .show(RelativePoint.getCenterOf(statusBar.getComponent()),
-                                        Balloon.Position.atRight);
+                        deleteDcevmJreDir();
+                        System.out.println("IOException: " + e.getMessage());
+                        if (!indicator.isCanceled()) {
+                            ApplicationManager.getApplication().invokeLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    StatusBar statusBar = WindowManager.getInstance().getStatusBar(project);
+                                    JBPopupFactory.getInstance()
+                                        .createHtmlTextBalloonBuilder(ERROR_MESSAGE, MessageType.ERROR, null)
+                                        .setFadeoutTime(7500)
+                                        .createBalloon()
+                                        .show(RelativePoint.getCenterOf(statusBar.getComponent()),
+                                           Balloon.Position.atRight);
+                                }
+                            });
+                        }
                     }
                 }
 
@@ -86,7 +104,7 @@ public class DcevmStartup implements StartupActivity {
 
                 @Override
                 public void onCancel() {
-                    //TODO: delete DCEVM home directory hoya!
+                    deleteDcevmJreDir();
                 }
 
             }.setCancelText("Stop downloading").queue();
@@ -99,4 +117,11 @@ public class DcevmStartup implements StartupActivity {
             TemplateAlterJreSettingsReplacer.replaceWith(project, InfoProvider.getInstallDirectory(), true);
         }
     }
+
+    private void deleteDcevmJreDir() {
+        File root = new File(InfoProvider.getInstallDirectory());
+        System.out.println("Deleting " + root.getAbsolutePath());
+        FileUtil.delete(root);
+    }
+
 }
