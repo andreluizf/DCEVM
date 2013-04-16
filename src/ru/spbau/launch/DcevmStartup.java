@@ -15,6 +15,7 @@ import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.openapi.wm.StatusBar;
 import com.intellij.openapi.wm.WindowManager;
 import com.intellij.ui.awt.RelativePoint;
+import com.intellij.util.io.ZipUtil;
 import org.jetbrains.annotations.NotNull;
 import ru.spbau.install.Downloader;
 import ru.spbau.install.info.InfoProvider;
@@ -60,16 +61,16 @@ public class DcevmStartup implements StartupActivity {
                 public void run(ProgressIndicator indicator) {
                     indicator.setText(INDICATOR_TEXT);
                     try {
-
                         @NotNull File dcevmRoot = new File(InfoProvider.getInstallDirectory());
                         FileUtil.createDirectory(dcevmRoot);
                         File downloadedFile = Downloader.downloadDcevm(InfoProvider.getInstallDirectory(), indicator);
                         jreState.setReady();
+
                         //TODO delete it
                         System.out.println("DCEVM downloaded into: " + InfoProvider.getInstallDirectory());
 
-                        //TODO unzip downloadedFile
-
+                        ZipUtil.extract(downloadedFile, dcevmRoot, null);
+                        FileUtil.delete(downloadedFile);
                     } catch (IOException e) {
                         deleteDcevmJreDir();
                         System.out.println("IOException: " + e.getMessage());
