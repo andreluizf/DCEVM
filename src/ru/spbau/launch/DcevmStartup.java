@@ -16,6 +16,7 @@ import com.intellij.ui.awt.RelativePoint;
 import ru.spbau.install.download.Downloader;
 import ru.spbau.install.info.InfoProvider;
 
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -25,13 +26,18 @@ import java.io.IOException;
  */
 public class DcevmStartup implements StartupActivity {
 
+
+    public static final String DIALOG_MESSAGE = "Download dcevm?";
+    public static final String DIALOG_TITLE = "DCEVM plugin";
+    public static final String INDICATOR_TEXT = "Downloading DCEVM jre";
+    public static final String ERROR_MESSAGE = "<html>DCEVM download:<br>IO Error during downloading</html>";
+
     @Override
     public void runActivity(final Project project) {
         ApplicationManager.getApplication().invokeLater(new Runnable() {
             @Override
             public void run() {
                 JreStateProvider jreState = ApplicationManager.getApplication().getComponent(JreStateProvider.class);
-
                 if (!jreState.isReady()) {
                     downloadAndPatchOpenProjects(project);
                 }
@@ -40,21 +46,25 @@ public class DcevmStartup implements StartupActivity {
     }
 
     private void downloadAndPatchOpenProjects(final Project project) {
-        int result = Messages.showYesNoDialog("Download dcevm?", "DCEVM plugin", null);
+        int result = Messages.showYesNoDialog(DIALOG_MESSAGE, DIALOG_TITLE, null);
         if (result == 0) {
-            new Task.Backgroundable(project, "DCEVM plugin", true) {
+            new Task.Backgroundable(project, DIALOG_TITLE, true) {
+                final JreStateProvider jreState = ApplicationManager.getApplication().getComponent(JreStateProvider.class);
+
                 @Override
                 public void run(ProgressIndicator indicator) {
-                    indicator.setText("Downloading DCEVM jre");
-                    Downloader dcevmLoader = new Downloader(InfoProvider.getInstallDirectory());
+                    indicator.setText(INDICATOR_TEXT);
                     try {
-                        dcevmLoader.downloadDcevm(indicator);
+                        File downloadedFile = Downloader.downloadDcevm(InfoProvider.getInstallDirectory(), indicator);
+                        jreState.setReady();
+                        //TODO unzip it :)
+
                     } catch (IOException e) {
 
                         //TODO: from what thread?
                         StatusBar statusBar = WindowManager.getInstance().getStatusBar(project);
                         JBPopupFactory.getInstance()
-                                .createHtmlTextBalloonBuilder("<html>DCEVM download:<br>IO Error during downloading</html>", MessageType.ERROR, null)
+                                .createHtmlTextBalloonBuilder(ERROR_MESSAGE, MessageType.ERROR, null)
                                 .setFadeoutTime(7500)
                                 .createBalloon()
                                 .show(RelativePoint.getCenterOf(statusBar.getComponent()),
@@ -65,13 +75,14 @@ public class DcevmStartup implements StartupActivity {
 
                 @Override
                 public void onSuccess() {
-                    ApplicationManager.getApplication().runWriteAction(new Runnable() {
-                        @Override
-                        public void run() {
-                            patchOpenProjects();
-                        }
-                    });
-                    patchOpenProjects();
+                    if (jreState.isReady()) {
+                        ApplicationManager.getApplication().runWriteAction(new Runnable() {
+                            @Override
+                            public void run() {
+                                patchOpenProjects();
+                            }
+                        });
+                    }
                 }
 
                 @Override

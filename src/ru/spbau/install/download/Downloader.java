@@ -19,13 +19,9 @@ import java.net.HttpURLConnection;
  * Time: 6:53 PM
  */
 public class Downloader {
-    private String destAddress;
+    public static final String DOWNLOADED_FILE = "DCEVM.zip";
 
-    public Downloader(String destAddress) {
-        this.destAddress = destAddress;
-    }
-
-    public File downloadDcevm(final ProgressIndicator pi) throws IOException {
+    public static File downloadDcevm(String destAddress, final ProgressIndicator pi) throws IOException {
         final File pluginsTemp = new File(destAddress);
         if (!pluginsTemp.exists() && !pluginsTemp.mkdirs()) {
             throw new IOException(IdeBundle.message("error.cannot.create.temp.dir", pluginsTemp));
@@ -33,7 +29,7 @@ public class Downloader {
         final File file = FileUtil.createTempFile(pluginsTemp, "plugin_", "_download", true, false);
         HttpURLConnection connection = null;
         String dcevmUrl = InfoProvider.getJreUrl();
-        String finalName = "DCEVM.zip";
+        String finalName = DOWNLOADED_FILE;
         try {
             connection = HttpConfigurable.getInstance().openHttpConnection(dcevmUrl);
             final InputStream is = UrlConnectionUtil.getConnectionInputStream(connection, pi);
