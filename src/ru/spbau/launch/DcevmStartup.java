@@ -33,13 +33,16 @@ public class DcevmStartup implements StartupActivity {
     public static final String DIALOG_TITLE = "DCEVM plugin";
     public static final String INDICATOR_TEXT = "Downloading DCEVM jre";
     public static final String ERROR_MESSAGE = "<html>DCEVM download:<br>IO Error during downloading</html>";
+    public static final String CANCEL_TEXT = "Stop downloading";
+
+    private JreStateProvider jreState;
 
     /*
      * It's executed in AWT Event thread
      */
     @Override
     public void runActivity(final Project project) {
-        JreStateProvider jreState = ApplicationManager.getApplication().getComponent(JreStateProvider.class);
+        jreState = ApplicationManager.getApplication().getComponent(JreStateProvider.class);
 
         //for testing purposes only
         jreState.setUnready();
@@ -51,11 +54,10 @@ public class DcevmStartup implements StartupActivity {
 
     private void downloadAndPatchOpenProjects(final Project project) {
         int result = Messages.showYesNoDialog(DIALOG_MESSAGE, DIALOG_TITLE, null);
+
         if (result == 0) {
             //It's executed in a background thread
             new Task.Backgroundable(project, DIALOG_TITLE, true) {
-                final JreStateProvider jreState = ApplicationManager.getApplication().getComponent(JreStateProvider.class);
-
                 @Override
                 public void run(ProgressIndicator indicator) {
                     indicator.setText(INDICATOR_TEXT);
@@ -65,14 +67,17 @@ public class DcevmStartup implements StartupActivity {
                         File downloadedFile = Downloader.downloadDcevm(InfoProvider.getInstallDirectory(), indicator);
                         jreState.setReady();
 
-                        //TODO delete it
+                        //TODO delete
                         System.out.println("DCEVM downloaded into: " + InfoProvider.getInstallDirectory());
 
                         ZipUtil.extract(downloadedFile, dcevmRoot, null);
                         FileUtil.delete(downloadedFile);
                     } catch (IOException e) {
                         deleteDcevmJreDir();
+
+                        //TODO delete
                         System.out.println("IOException: " + e.getMessage());
+
                         if (!indicator.isCanceled()) {
                             ApplicationManager.getApplication().invokeLater(new Runnable() {
                                 @Override
@@ -90,6 +95,7 @@ public class DcevmStartup implements StartupActivity {
                     }
                 }
 
+                //it's executed in AWT Event thread
                 @Override
                 public void onSuccess() {
                     if (jreState.isReady()) {
@@ -107,7 +113,7 @@ public class DcevmStartup implements StartupActivity {
                     deleteDcevmJreDir();
                 }
 
-            }.setCancelText("Stop downloading").queue();
+            }.setCancelText(CANCEL_TEXT).queue();
         }
     }
 
@@ -120,7 +126,10 @@ public class DcevmStartup implements StartupActivity {
 
     private void deleteDcevmJreDir() {
         File root = new File(InfoProvider.getInstallDirectory());
+
+        //TODO delete
         System.out.println("Deleting " + root.getAbsolutePath());
+
         FileUtil.delete(root);
     }
 

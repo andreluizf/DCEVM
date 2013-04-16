@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b1d1ce3f-7464-4278-b589-2cfeb18f64f4" name="Default" comment="unzipping done!">
+    <list default="true" id="b1d1ce3f-7464-4278-b589-2cfeb18f64f4" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ru/spbau/launch/DcevmStartup.java" afterPath="$PROJECT_DIR$/src/ru/spbau/launch/DcevmStartup.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ru/spbau/install/Downloader.java" afterPath="$PROJECT_DIR$/src/ru/spbau/install/Downloader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ru/spbau/install/info/InfoProvider.java" afterPath="$PROJECT_DIR$/src/ru/spbau/install/info/InfoProvider.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="DCEVM.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="b1d1ce3f-7464-4278-b589-2cfeb18f64f4" time="1366123560253" ignored="false" />
+    <file path="/Dummy.txt" changelist="b1d1ce3f-7464-4278-b589-2cfeb18f64f4" time="1366123728805" ignored="false" />
     <file path="/Starter.java" changelist="b1d1ce3f-7464-4278-b589-2cfeb18f64f4" time="1366045448609" ignored="false" />
     <file path="/ChangeTemplateJre.java" changelist="b1d1ce3f-7464-4278-b589-2cfeb18f64f4" time="1366063639575" ignored="false" />
     <file path="/DcevmInstallManager.java" changelist="b1d1ce3f-7464-4278-b589-2cfeb18f64f4" time="1366051916667" ignored="false" />
-    <file path="/fragment.java" changelist="b1d1ce3f-7464-4278-b589-2cfeb18f64f4" time="1366113421764" ignored="false" />
+    <file path="/fragment.java" changelist="b1d1ce3f-7464-4278-b589-2cfeb18f64f4" time="1366126826771" ignored="false" />
     <file path="$USER_HOME$/Documents/intellij-community-master/config/componentVersions/project6a497d70.xml" changelist="b1d1ce3f-7464-4278-b589-2cfeb18f64f4" time="1366053286927" ignored="false" />
     <file path="$USER_HOME$/Documents/intellij-community-master/config/options/other.xml" changelist="b1d1ce3f-7464-4278-b589-2cfeb18f64f4" time="1366053286927" ignored="false" />
     <file path="$USER_HOME$/Documents/intellij-community-master/config/componentVersions/modulelastb5b6da2f.xml" changelist="b1d1ce3f-7464-4278-b589-2cfeb18f64f4" time="1366053286927" ignored="false" />
@@ -24,15 +26,15 @@
     <file path="/DcevmStarter.java" changelist="b1d1ce3f-7464-4278-b589-2cfeb18f64f4" time="1366067454772" ignored="false" />
     <file path="/DcevmInstInfo.java" changelist="b1d1ce3f-7464-4278-b589-2cfeb18f64f4" time="1366062554083" ignored="false" />
     <file path="/a.dummy" changelist="b1d1ce3f-7464-4278-b589-2cfeb18f64f4" time="1366117173066" ignored="false" />
-    <file path="/Downloader.java" changelist="b1d1ce3f-7464-4278-b589-2cfeb18f64f4" time="1366121791030" ignored="false" />
+    <file path="/Downloader.java" changelist="b1d1ce3f-7464-4278-b589-2cfeb18f64f4" time="1366128736057" ignored="false" />
     <file path="/DcevmJreStateProvider.java" changelist="b1d1ce3f-7464-4278-b589-2cfeb18f64f4" time="1366063330700" ignored="false" />
     <file path="/DcevmUrlProvider.java" changelist="b1d1ce3f-7464-4278-b589-2cfeb18f64f4" time="1366064405479" ignored="false" />
     <file path="/JreHome.java" changelist="b1d1ce3f-7464-4278-b589-2cfeb18f64f4" time="1366064470091" ignored="false" />
     <file path="/TemplateJreReplacer.java" changelist="b1d1ce3f-7464-4278-b589-2cfeb18f64f4" time="1366064992246" ignored="false" />
     <file path="/JreStateProvider.java" changelist="b1d1ce3f-7464-4278-b589-2cfeb18f64f4" time="1366109334545" ignored="false" />
     <file path="/TemplateAlterJreSettingsReplacer.java" changelist="b1d1ce3f-7464-4278-b589-2cfeb18f64f4" time="1366108290915" ignored="false" />
-    <file path="/InfoProvider.java" changelist="b1d1ce3f-7464-4278-b589-2cfeb18f64f4" time="1366119189590" ignored="false" />
-    <file path="/DcevmStartup.java" changelist="b1d1ce3f-7464-4278-b589-2cfeb18f64f4" time="1366123274529" ignored="false" />
+    <file path="/InfoProvider.java" changelist="b1d1ce3f-7464-4278-b589-2cfeb18f64f4" time="1366128235742" ignored="false" />
+    <file path="/DcevmStartup.java" changelist="b1d1ce3f-7464-4278-b589-2cfeb18f64f4" time="1366129272804" ignored="false" />
     <file path="/FileUtils.java" changelist="b1d1ce3f-7464-4278-b589-2cfeb18f64f4" time="1366116340471" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -82,7 +84,22 @@
         <option name="LOG_MESSAGE" value="&#13;&#13;JAVA" />
       </breakpoint>
     </breakpoint_any>
-    <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true" />
+    <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true">
+      <breakpoint url="file://$PROJECT_DIR$/src/ru/spbau/launch/DcevmStartup.java" line="44" class="ru.spbau.launch.DcevmStartup" package="ru.spbau.launch">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+    </line_breakpoints>
     <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
@@ -93,72 +110,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="JreStateProvider.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ru/spbau/launch/JreStateProvider.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="0" selection-start="587" selection-end="587" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1179#1586#0" expanded="true" />
-                <element signature="e#1317#1560#0" expanded="true" />
-                <element signature="e#1541#1542#0" expanded="true" />
-                <element signature="e#1575#1576#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Downloader.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ru/spbau/install/Downloader.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="23" selection-start="664" selection-end="664" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="e#899#961#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="HttpConfigurable.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/Programming/intellij-community/platform/platform-api/src/com/intellij/util/net/HttpConfigurable.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="380" column="27" selection-start="14582" selection-end="14582" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UrlConnectionUtil.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/Programming/intellij-community/platform/platform-impl/src/com/intellij/util/io/UrlConnectionUtil.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="55" column="14" selection-start="1816" selection-end="1816" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ProgressIndicator.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/Programming/intellij-community/platform/core-api/src/com/intellij/openapi/progress/ProgressIndicator.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="14" selection-start="865" selection-end="865" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ProcessCanceledException.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/Programming/intellij-community/platform/util/src/com/intellij/openapi/progress/ProcessCanceledException.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="13" selection-start="654" selection-end="654" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="InfoProvider.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ru/spbau/install/info/InfoProvider.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="4" selection-start="333" selection-end="333" vertical-scroll-proportion="0.0">
+            <state line="64" column="27" selection-start="2546" selection-end="2546" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -167,30 +122,58 @@
       <file leaf-file-name="DcevmStartup.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ru/spbau/launch/DcevmStartup.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="0" selection-start="86" selection-end="86" vertical-scroll-proportion="-0.3529412">
+            <state line="51" column="38" selection-start="1815" selection-end="1815" vertical-scroll-proportion="0.5225225">
               <folding>
-                <element signature="e#3232#3978#0" expanded="true" />
-                <element signature="e#3947#3948#0" expanded="true" />
-                <element signature="e#4237#4448#0" expanded="true" />
-                <element signature="e#4421#4422#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#4290#4501#0" expanded="true" />
+                <element signature="e#4474#4475#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ZipUtil.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/Programming/intellij-community/platform/util/src/com/intellij/util/io/ZipUtil.java">
+      <file leaf-file-name="workspace.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="138" column="21" selection-start="5480" selection-end="5480" vertical-scroll-proportion="0.0">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ZipFile.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="jar:///usr/lib/jvm/java-6-oracle/src.zip!/java/util/zip/ZipFile.java">
+      <file leaf-file-name="JreStateProvider.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ru/spbau/launch/JreStateProvider.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="141" column="11" selection-start="5041" selection-end="5041" vertical-scroll-proportion="0.0">
+            <state line="13" column="13" selection-start="310" selection-end="310" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TemplateAlterJreSettingsReplacer.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ru/spbau/launch/TemplateAlterJreSettingsReplacer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="24" column="22" selection-start="839" selection-end="839" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Task.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/Programming/intellij-community/platform/platform-api/src/com/intellij/openapi/progress/Task.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="154" column="11" selection-start="4480" selection-end="4480" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InfoProvider.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ru/spbau/install/info/InfoProvider.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="1" column="78" selection-start="31" selection-end="31" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -559,7 +542,11 @@
       <created>1366123393367</created>
       <updated>1366123393367</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="unzipping done!">
+      <created>1366123746890</created>
+      <updated>1366123746890</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -584,24 +571,24 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="-4" width="1282" height="1029" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3280363" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3166856" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3166856" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3291714" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3291714" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3291714" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296582" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3291714" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25688818" sideWeight="0.6708286" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.102106966" sideWeight="0.6708286" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25688818" sideWeight="0.68331444" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30226904" sideWeight="0.68331444" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296582" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Puzzle" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -678,127 +665,120 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$USER_HOME$/Programming/intellij-community/platform/util/src/com/intellij/openapi/util/io/FileUtil.java">
+    <entry file="jar:///usr/lib/jvm/java-6-oracle/src.zip!/java/util/Map.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="414" column="40" selection-start="14976" selection-end="14976" vertical-scroll-proportion="0.0">
+        <state line="176" column="6" selection-start="8646" selection-end="8646" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/META-INF/plugin.xml">
+    <entry file="file://$USER_HOME$/Programming/intellij-community/platform/platform-impl/src/com/intellij/ide/plugins/PluginManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="1124" column="43" selection-start="45323" selection-end="45323" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Programming/intellij-community/platform/platform-api/src/com/intellij/util/net/NetUtils.java">
+    <entry file="file://$USER_HOME$/Programming/intellij-community/platform/util/src/com/intellij/openapi/util/SystemInfo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="110" column="20" selection-start="3371" selection-end="3371" vertical-scroll-proportion="0.0">
+        <state line="77" column="30" selection-start="4227" selection-end="4227" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="jar:///usr/lib/jvm/java-6-oracle/src.zip!/java/lang/Object.java">
+    <entry file="file://$USER_HOME$/Programming/intellij-community/platform/core-api/src/com/intellij/openapi/components/ComponentManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="364" column="29" selection-start="17894" selection-end="17894" vertical-scroll-proportion="0.0">
+        <state line="49" column="20" selection-start="1838" selection-end="1838" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Programming/intellij-community/platform/platform-impl/src/com/intellij/openapi/application/ex/ApplicationManagerEx.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="13" selection-start="963" selection-end="963" vertical-scroll-proportion="0.20833333">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Programming/intellij-community/platform/core-api/src/com/intellij/openapi/application/ApplicationManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="19" selection-start="1172" selection-end="1172" vertical-scroll-proportion="0.3090278">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Programming/intellij-community/platform/core-api/src/com/intellij/openapi/application/Application.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="41" column="17" selection-start="1931" selection-end="1931" vertical-scroll-proportion="0.3090278">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Programming/intellij-community/platform/platform-impl/src/com/intellij/openapi/application/impl/ApplicationImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="84" column="50" selection-start="3751" selection-end="3751" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Programming/intellij-community/platform/core-impl/src/com/intellij/openapi/components/impl/ComponentManagerImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="308" column="36" selection-start="10223" selection-end="10223" vertical-scroll-proportion="0.3732639">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/Programming/intellij-community/platform/platform-api/src/com/intellij/openapi/progress/Task.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="22" selection-start="1513" selection-end="1513" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ru/spbau/launch/TemplateAlterJreSettingsReplacer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="19" selection-start="859" selection-end="859" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Programming/intellij-community/platform/util/src/com/intellij/openapi/progress/ProcessCanceledException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="13" selection-start="654" selection-end="654" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Programming/intellij-community/platform/platform-api/src/com/intellij/util/net/HttpConfigurable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="380" column="27" selection-start="14582" selection-end="14582" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Programming/intellij-community/platform/platform-impl/src/com/intellij/util/io/UrlConnectionUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="55" column="14" selection-start="1816" selection-end="1816" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Programming/intellij-community/platform/core-api/src/com/intellij/openapi/progress/ProgressIndicator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="14" selection-start="865" selection-end="865" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ru/spbau/install/info/InfoProvider.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="4" selection-start="333" selection-end="333" vertical-scroll-proportion="0.0">
+        <state line="154" column="11" selection-start="4480" selection-end="4480" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ru/spbau/launch/JreStateProvider.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="0" selection-start="587" selection-end="587" vertical-scroll-proportion="0.0">
+        <state line="13" column="13" selection-start="310" selection-end="310" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1179#1586#0" expanded="true" />
-            <element signature="e#1317#1560#0" expanded="true" />
-            <element signature="e#1541#1542#0" expanded="true" />
-            <element signature="e#1575#1576#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="jar:///usr/lib/jvm/java-6-oracle/src.zip!/java/util/zip/ZipFile.java">
+    <entry file="file://$PROJECT_DIR$/src/ru/spbau/launch/TemplateAlterJreSettingsReplacer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="141" column="11" selection-start="5041" selection-end="5041" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Programming/intellij-community/platform/util/src/com/intellij/util/io/ZipUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="138" column="21" selection-start="5480" selection-end="5480" vertical-scroll-proportion="0.0">
+        <state line="24" column="22" selection-start="839" selection-end="839" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ru/spbau/install/Downloader.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="23" selection-start="664" selection-end="664" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#899#961#0" expanded="true" />
-          </folding>
+        <state line="64" column="27" selection-start="2546" selection-end="2546" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ru/spbau/install/info/InfoProvider.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="78" selection-start="31" selection-end="31" vertical-scroll-proportion="0.0">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ru/spbau/launch/DcevmStartup.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="0" selection-start="86" selection-end="86" vertical-scroll-proportion="-0.3529412">
+        <state line="51" column="38" selection-start="1815" selection-end="1815" vertical-scroll-proportion="0.5225225">
           <folding>
-            <element signature="e#3232#3978#0" expanded="true" />
-            <element signature="e#3947#3948#0" expanded="true" />
-            <element signature="e#4237#4448#0" expanded="true" />
-            <element signature="e#4421#4422#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#4290#4501#0" expanded="true" />
+            <element signature="e#4474#4475#0" expanded="true" />
           </folding>
         </state>
       </provider>
