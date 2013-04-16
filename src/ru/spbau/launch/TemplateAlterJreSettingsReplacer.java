@@ -8,6 +8,7 @@ import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.components.ProjectComponent;
 import com.intellij.openapi.project.Project;
 import org.jetbrains.annotations.NotNull;
+import ru.spbau.install.info.InfoProvider;
 import ru.spbau.install.info.specific.JreHomePath;
 
 /**
@@ -22,10 +23,21 @@ public class TemplateAlterJreSettingsReplacer implements ProjectComponent {
         this.project = project;
     }
 
+    //executed by ApplicationImpl pooled thread
     public void initComponent() {
         JreStateProvider jreState = ApplicationManager.getApplication().getComponent(JreStateProvider.class);
         if (jreState.isReady()) {
-            replaceWith(project, JreHomePath.getLinuxJrePath(), true);
+            ApplicationManager.getApplication().invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    ApplicationManager.getApplication().runWriteAction(new Runnable() {
+                        @Override
+                        public void run() {
+                            replaceWith(project, InfoProvider.getInstallDirectory(), true);
+                        }
+                    });
+                }
+            });
         }
     }
 

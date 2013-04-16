@@ -1,6 +1,7 @@
 package ru.spbau.launch;
 
 import com.intellij.ide.util.PropertiesComponent;
+import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.components.ApplicationComponent;
 import org.jetbrains.annotations.NotNull;
 
@@ -16,9 +17,12 @@ public class JreStateProvider implements ApplicationComponent {
 
     public JreStateProvider() {
     }
+
+    //executed in AWT Event thread
     public void initComponent() {
         isReady = PropertiesComponent.getInstance().getBoolean(DCEVM_DOWNLOAD_STATE, false);
     }
+
     public void disposeComponent() {
     }
     @NotNull
@@ -29,12 +33,29 @@ public class JreStateProvider implements ApplicationComponent {
     public boolean isReady() {
         return isReady;
     }
+
+    //It could be executed from everywhere
     public void setReady() {
         isReady = true;
-        PropertiesComponent.getInstance().setValue(DCEVM_DOWNLOAD_STATE, Boolean.toString(isReady));
+        saveState();
     }
     public void setUnready() {
         isReady = false;
-        PropertiesComponent.getInstance().setValue(DCEVM_DOWNLOAD_STATE, Boolean.toString(isReady));
+        saveState();
     }
+    private void saveState() {
+        ApplicationManager.getApplication().invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                ApplicationManager.getApplication().runWriteAction(new Runnable() {
+                    @Override
+                    public void run() {
+                        PropertiesComponent.getInstance().setValue(DCEVM_DOWNLOAD_STATE, Boolean.toString(isReady));
+                    }
+                });
+            }
+        });
+    }
+
+
 }

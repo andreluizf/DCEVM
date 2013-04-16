@@ -1,4 +1,4 @@
-package ru.spbau.install.download;
+package ru.spbau.install;
 
 import com.intellij.ide.IdeBundle;
 import com.intellij.openapi.application.ApplicationManager;
@@ -19,28 +19,26 @@ import java.net.HttpURLConnection;
  * Time: 6:53 PM
  */
 public class Downloader {
-    private String destAddress;
+    private static final String DOWNLOADED_FILE = "DCEVM.zip";
+    private static final String INDICATOR_TEXT = "Downloading DCEVM jre";
 
-    public Downloader(String destAddress) {
-        this.destAddress = destAddress;
-    }
-
-    public File downloadDcevm(final ProgressIndicator pi) throws IOException {
+    //executed from background thread
+    public static File downloadDcevm(String destAddress, final ProgressIndicator pi) throws IOException {
         final File pluginsTemp = new File(destAddress);
         if (!pluginsTemp.exists() && !pluginsTemp.mkdirs()) {
             throw new IOException(IdeBundle.message("error.cannot.create.temp.dir", pluginsTemp));
         }
+
         final File file = FileUtil.createTempFile(pluginsTemp, "plugin_", "_download", true, false);
         HttpURLConnection connection = null;
-        String dcevmUrl = InfoProvider.getJreUrl();
-        String finalName = "DCEVM.zip";
         try {
-            connection = HttpConfigurable.getInstance().openHttpConnection(dcevmUrl);
+            connection = HttpConfigurable.getInstance().openHttpConnection(InfoProvider.getJreUrl());
             final InputStream is = UrlConnectionUtil.getConnectionInputStream(connection, pi);
             if (is == null) {
                 throw new IOException("Failed to open connection");
             }
-            pi.setText("Downloading DCEVM jre");
+
+            pi.setText(INDICATOR_TEXT);
             final int contentLength = connection.getContentLength();
             pi.setIndeterminate(contentLength == -1);
             try {
@@ -55,9 +53,15 @@ public class Downloader {
             finally {
                 is.close();
             }
-            final File newFile = new File(file.getParentFile(), finalName);
+
+            final File newFile = new File(file.getParentFile(), DOWNLOADED_FILE);
             FileUtil.rename(file, newFile);
-            ApplicationManager.getApplication().getComponent(JreStateProvider.class).setReady();
+            ApplicationManager.getApplication().runReadAction(new Runnable() {
+                @Override
+                public void run() {
+                    ApplicationManager.getApplication().getComponent(JreStateProvider.class).setReady();
+                }
+            });
             return newFile;
         }
         finally {

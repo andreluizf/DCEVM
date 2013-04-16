@@ -7,7 +7,7 @@ package ru.spbau.install.info.specific;
  */
 public class JreHomePath {
     public static String getLinuxJrePath() {
-        return "/home/yarik/DCEVM/";
+        return "/home/user/";
     }
 
 
