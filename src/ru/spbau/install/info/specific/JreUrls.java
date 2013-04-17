@@ -10,7 +10,10 @@ public class JreUrls {
     }
 
     public static String getLinuxUrl() {
-        return "https://github.com/sweetybanana/DCEVM/raw/master/lib/jre.zip";
+        return "https://github.com/sweetybanana/DCEVM/raw/master/lib/j2re-dcevm-linux64.zip";
     }
 
+    public static String getLinuxJvmLib() {
+        return "https://github.com/sweetybanana/DCEVM/raw/master/lib/jre.zip";
+    }
 }
