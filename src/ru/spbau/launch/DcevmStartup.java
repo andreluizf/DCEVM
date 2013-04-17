@@ -38,12 +38,15 @@ public class DcevmStartup implements StartupActivity {
 
     private JreStateProvider jreState;
 
-    /*
-     * It's executed in AWT Event thread
-     */
+    //ApplicationImpl thread
     @Override
     public void runActivity(final Project project) {
-        jreState = ApplicationManager.getApplication().getComponent(JreStateProvider.class);
+        ApplicationManager.getApplication().runReadAction(new Runnable() {
+            @Override
+            public void run() {
+                jreState = ApplicationManager.getApplication().getComponent(JreStateProvider.class);
+            }
+        });
 
 //        for testing purposes only
 //        jreState.setReady();

@@ -3,12 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="b1d1ce3f-7464-4278-b589-2cfeb18f64f4" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ru/spbau/launch/DcevmStartup.java" afterPath="$PROJECT_DIR$/src/ru/spbau/launch/DcevmStartup.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ru/spbau/install/info/specific/JreUrls.java" afterPath="$PROJECT_DIR$/src/ru/spbau/install/info/specific/JreUrls.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="DCEVM.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="b1d1ce3f-7464-4278-b589-2cfeb18f64f4" time="1366208374791" ignored="false" />
+    <file path="/Dummy.txt" changelist="b1d1ce3f-7464-4278-b589-2cfeb18f64f4" time="1366208391414" ignored="false" />
     <file path="/Starter.java" changelist="b1d1ce3f-7464-4278-b589-2cfeb18f64f4" time="1366045448609" ignored="false" />
     <file path="/ChangeTemplateJre.java" changelist="b1d1ce3f-7464-4278-b589-2cfeb18f64f4" time="1366063639575" ignored="false" />
     <file path="/DcevmInstallManager.java" changelist="b1d1ce3f-7464-4278-b589-2cfeb18f64f4" time="1366051916667" ignored="false" />
@@ -33,7 +32,7 @@
     <file path="/JreStateProvider.java" changelist="b1d1ce3f-7464-4278-b589-2cfeb18f64f4" time="1366109334545" ignored="false" />
     <file path="/TemplateAlterJreSettingsReplacer.java" changelist="b1d1ce3f-7464-4278-b589-2cfeb18f64f4" time="1366108290915" ignored="false" />
     <file path="/InfoProvider.java" changelist="b1d1ce3f-7464-4278-b589-2cfeb18f64f4" time="1366191361631" ignored="false" />
-    <file path="/DcevmStartup.java" changelist="b1d1ce3f-7464-4278-b589-2cfeb18f64f4" time="1366207735831" ignored="false" />
+    <file path="/DcevmStartup.java" changelist="b1d1ce3f-7464-4278-b589-2cfeb18f64f4" time="1366208635976" ignored="false" />
     <file path="/FileUtils.java" changelist="b1d1ce3f-7464-4278-b589-2cfeb18f64f4" time="1366116340471" ignored="false" />
     <file path="/JreUrls.java" changelist="b1d1ce3f-7464-4278-b589-2cfeb18f64f4" time="1366207623134" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -108,17 +107,28 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DcevmStartup.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="DcevmStartup.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ru/spbau/launch/DcevmStartup.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="85" column="84" selection-start="3365" selection-end="3365" vertical-scroll-proportion="0.0">
+            <state line="52" column="31" selection-start="1930" selection-end="1930" vertical-scroll-proportion="0.5765766">
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1891#2060#0" expanded="true" />
-                <element signature="e#2045#2046#0" expanded="true" />
-                <element signature="e#3885#4753#0" expanded="true" />
-                <element signature="e#4722#4723#0" expanded="true" />
+                <element signature="e#1634#1829#0" expanded="true" />
+                <element signature="e#1818#1819#0" expanded="true" />
+                <element signature="e#2027#2196#0" expanded="true" />
+                <element signature="e#2181#2182#0" expanded="true" />
+                <element signature="e#4021#4889#0" expanded="true" />
+                <element signature="e#4858#4859#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JreStateProvider.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ru/spbau/launch/JreStateProvider.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="41" column="16" selection-start="1025" selection-end="1025" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -136,15 +146,6 @@
         <entry file="file://$PROJECT_DIR$/src/ru/spbau/launch/TemplateAlterJreSettingsReplacer.java">
           <provider selected="true" editor-type-id="text-editor">
             <state line="23" column="0" selection-start="788" selection-end="788" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ProgressManagerImpl.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/Programming/intellij-community/platform/platform-impl/src/com/intellij/openapi/progress/impl/ProgressManagerImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="194" column="0" selection-start="6503" selection-end="6503" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -186,10 +187,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="JreUrls.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="JreUrls.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ru/spbau/install/info/specific/JreUrls.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="25" selection-start="375" selection-end="375" vertical-scroll-proportion="0.44117647">
+            <state line="16" column="25" selection-start="375" selection-end="375" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -227,8 +228,8 @@
         <option value="$PROJECT_DIR$/src/ru/spbau/launch/JreStateProvider.java" />
         <option value="$PROJECT_DIR$/src/ru/spbau/install/info/InfoProvider.java" />
         <option value="$PROJECT_DIR$/src/ru/spbau/install/Downloader.java" />
-        <option value="$PROJECT_DIR$/src/ru/spbau/launch/DcevmStartup.java" />
         <option value="$PROJECT_DIR$/src/ru/spbau/install/info/specific/JreUrls.java" />
+        <option value="$PROJECT_DIR$/src/ru/spbau/launch/DcevmStartup.java" />
       </list>
     </option>
   </component>
@@ -626,7 +627,11 @@
       <created>1366202152286</created>
       <updated>1366202152286</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="dcevm link moved to dropbox, java executable attribute added after downloading">
+      <created>1366208396434</created>
+      <updated>1366208396434</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -657,16 +662,16 @@
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3166856" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3166856" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2122588" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3291714" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3291714" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3291714" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25688818" sideWeight="0.6708286" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25688818" sideWeight="0.68331444" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3291714" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Puzzle" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -780,13 +785,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ru/spbau/launch/JreStateProvider.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="46" column="47" selection-start="1170" selection-end="1170" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Programming/intellij-community/platform/util-rt/src/com/intellij/openapi/diagnostic/LoggerRt.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="65" column="0" selection-start="1849" selection-end="1849" vertical-scroll-proportion="0.0">
@@ -804,24 +802,6 @@
     <entry file="file://$PROJECT_DIR$/src/ru/spbau/launch/TemplateAlterJreSettingsReplacer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="23" column="0" selection-start="788" selection-end="788" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ru/spbau/install/Downloader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="47" column="12" selection-start="1951" selection-end="1951" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#1012#1074#0" expanded="true" />
-            <element signature="e#2301#2516#0" expanded="true" />
-            <element signature="e#2501#2502#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ru/spbau/install/info/InfoProvider.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="49" column="37" selection-start="1614" selection-end="1614" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -854,23 +834,50 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ru/spbau/launch/DcevmStartup.java">
+    <entry file="file://$PROJECT_DIR$/src/ru/spbau/install/info/specific/JreUrls.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="85" column="84" selection-start="3365" selection-end="3365" vertical-scroll-proportion="0.0">
+        <state line="16" column="25" selection-start="375" selection-end="375" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ru/spbau/install/info/InfoProvider.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="49" column="37" selection-start="1614" selection-end="1614" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ru/spbau/install/Downloader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="47" column="12" selection-start="1951" selection-end="1951" vertical-scroll-proportion="0.0">
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1891#2060#0" expanded="true" />
-            <element signature="e#2045#2046#0" expanded="true" />
-            <element signature="e#3885#4753#0" expanded="true" />
-            <element signature="e#4722#4723#0" expanded="true" />
+            <element signature="e#1012#1074#0" expanded="true" />
+            <element signature="e#2301#2516#0" expanded="true" />
+            <element signature="e#2501#2502#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ru/spbau/install/info/specific/JreUrls.java">
+    <entry file="file://$PROJECT_DIR$/src/ru/spbau/launch/JreStateProvider.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="25" selection-start="375" selection-end="375" vertical-scroll-proportion="0.44117647">
+        <state line="41" column="16" selection-start="1025" selection-end="1025" vertical-scroll-proportion="0.0">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ru/spbau/launch/DcevmStartup.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="52" column="31" selection-start="1930" selection-end="1930" vertical-scroll-proportion="0.5765766">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1634#1829#0" expanded="true" />
+            <element signature="e#1818#1819#0" expanded="true" />
+            <element signature="e#2027#2196#0" expanded="true" />
+            <element signature="e#2181#2182#0" expanded="true" />
+            <element signature="e#4021#4889#0" expanded="true" />
+            <element signature="e#4858#4859#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
