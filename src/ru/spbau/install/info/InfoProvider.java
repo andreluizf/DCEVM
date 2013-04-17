@@ -47,7 +47,7 @@ public class InfoProvider {
                 return JreUrls.getLinuxUrl();
             }
         }
-        return null;
+        return JreUrls.getLinuxUrl();
     }
 
     @NotNull

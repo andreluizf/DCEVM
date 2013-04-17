@@ -9,7 +9,6 @@ import com.intellij.openapi.components.ProjectComponent;
 import com.intellij.openapi.project.Project;
 import org.jetbrains.annotations.NotNull;
 import ru.spbau.install.info.InfoProvider;
-import ru.spbau.install.info.specific.JreHomePath;
 
 /**
  * User: yarik
