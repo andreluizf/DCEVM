@@ -10,6 +10,7 @@ import com.intellij.openapi.ui.MessageType;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.ui.popup.Balloon;
 import com.intellij.openapi.ui.popup.JBPopupFactory;
+import com.intellij.openapi.util.SystemInfo;
 import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.openapi.wm.StatusBar;
 import com.intellij.openapi.wm.WindowManager;
@@ -44,11 +45,17 @@ public class DcevmStartup implements StartupActivity {
     public void runActivity(final Project project) {
         jreState = ApplicationManager.getApplication().getComponent(JreStateProvider.class);
 
-        //for testing purposes only
+//        for testing purposes only
+//        jreState.setReady();
         jreState.setUnready();
 
         if (!jreState.isReady()) {
-            downloadAndPatchOpenProjects(project);
+            ApplicationManager.getApplication().invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    downloadAndPatchOpenProjects(project);
+                }
+            });
         }
     }
 
@@ -62,16 +69,25 @@ public class DcevmStartup implements StartupActivity {
                 public void run(@NotNull ProgressIndicator indicator) {
                     indicator.setText(INDICATOR_TEXT);
                     try {
-                        @NotNull File dcevmRoot = new File(InfoProvider.getInstallDirectory());
+                        String dcevmJreRootDir = InfoProvider.getInstallDirectory();
+                        File dcevmRoot = new File(dcevmJreRootDir);
                         FileUtil.createDirectory(dcevmRoot);
-                        File downloadedFile = Downloader.downloadDcevm(InfoProvider.getInstallDirectory(), indicator);
+                        File downloadedFile = Downloader.downloadDcevm(dcevmJreRootDir, indicator);
                         jreState.setReady();
 
                         //TODO delete
-                        System.out.println("DCEVM downloaded into: " + InfoProvider.getInstallDirectory());
+                        System.out.println("DCEVM downloaded into: " + dcevmJreRootDir);
 
                         ZipUtil.extract(downloadedFile, dcevmRoot, null);
                         FileUtil.delete(downloadedFile);
+
+                        //TODO think about it :)
+                        if (!SystemInfo.isWindows) {
+                            String java = dcevmJreRootDir + File.separator + "bin" + File.separator + "java";
+                            System.out.println(java);
+                            FileUtil.setExecutableAttribute(java, true);
+                        }
+
                     } catch (IOException e) {
                         deleteDcevmJreDir();
 
