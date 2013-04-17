@@ -59,7 +59,7 @@ public class DcevmStartup implements StartupActivity {
             //It's executed in a background thread
             new Task.Backgroundable(project, DIALOG_TITLE, true) {
                 @Override
-                public void run(ProgressIndicator indicator) {
+                public void run(@NotNull ProgressIndicator indicator) {
                     indicator.setText(INDICATOR_TEXT);
                     try {
                         @NotNull File dcevmRoot = new File(InfoProvider.getInstallDirectory());
@@ -83,12 +83,14 @@ public class DcevmStartup implements StartupActivity {
                                 @Override
                                 public void run() {
                                     StatusBar statusBar = WindowManager.getInstance().getStatusBar(project);
-                                    JBPopupFactory.getInstance()
-                                        .createHtmlTextBalloonBuilder(ERROR_MESSAGE, MessageType.ERROR, null)
-                                        .setFadeoutTime(7500)
-                                        .createBalloon()
-                                        .show(RelativePoint.getCenterOf(statusBar.getComponent()),
-                                           Balloon.Position.atRight);
+                                    if (statusBar != null) {
+                                        JBPopupFactory.getInstance()
+                                            .createHtmlTextBalloonBuilder(ERROR_MESSAGE, MessageType.ERROR, null)
+                                            .setFadeoutTime(7500)
+                                            .createBalloon()
+                                            .show(RelativePoint.getCenterOf(statusBar.getComponent()),
+                                              Balloon.Position.atRight);
+                                    }
                                 }
                             });
                         }
