@@ -4,7 +4,6 @@ package ru.spbau.install.info;
 import com.intellij.ide.plugins.IdeaPluginDescriptor;
 import com.intellij.ide.plugins.PluginManager;
 import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.application.PathManager;
 import com.intellij.openapi.extensions.PluginId;
 import com.intellij.openapi.util.SystemInfo;
 import org.jetbrains.annotations.NotNull;
@@ -46,8 +45,11 @@ public class InfoProvider {
             if (SystemInfo.isLinux) {
                 return JreUrls.getLinuxUrl();
             }
+            if (SystemInfo.isMac) {
+                return JreUrls.getMacOsUrl();
+            }
         }
-        return JreUrls.getLinuxUrl();
+        return "";
     }
 
     @NotNull
