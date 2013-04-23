@@ -2,8 +2,6 @@ package ru.spbau.launch;
 
 import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.components.ApplicationComponent;
-import org.jetbrains.annotations.NotNull;
 
 
 /**
@@ -11,23 +9,12 @@ import org.jetbrains.annotations.NotNull;
  * Date: 4/10/13
  * Time: 4:46 PM
  */
-public class JreStateProvider implements ApplicationComponent {
+public class JreStateProvider {
     private static final String DCEVM_DOWNLOAD_STATE = "DCEVM_DOWNLOAD_STATE";
     private volatile boolean isReady;
 
     public JreStateProvider() {
-    }
-
-    //executed in AWT Event thread
-    public void initComponent() {
         isReady = PropertiesComponent.getInstance().getBoolean(DCEVM_DOWNLOAD_STATE, false);
-    }
-
-    public void disposeComponent() {
-    }
-    @NotNull
-    public String getComponentName() {
-        return "JreStateProvider";
     }
 
     public boolean isReady() {
@@ -39,10 +26,12 @@ public class JreStateProvider implements ApplicationComponent {
         isReady = true;
         saveState();
     }
+
     public void setUnready() {
         isReady = false;
         saveState();
     }
+
     private void saveState() {
         ApplicationManager.getApplication().invokeLater(new Runnable() {
             @Override
@@ -56,6 +45,4 @@ public class JreStateProvider implements ApplicationComponent {
             }
         });
     }
-
-
 }

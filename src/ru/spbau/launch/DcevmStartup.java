@@ -1,13 +1,13 @@
 package ru.spbau.launch;
 
 import com.intellij.openapi.application.ApplicationManager;
+import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.progress.Task;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.project.ProjectManager;
 import com.intellij.openapi.startup.StartupActivity;
 import com.intellij.openapi.ui.MessageType;
-import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.ui.popup.Balloon;
 import com.intellij.openapi.ui.popup.JBPopupFactory;
 import com.intellij.openapi.util.SystemInfo;
@@ -36,7 +36,7 @@ public class DcevmStartup implements StartupActivity {
     public static final String ERROR_MESSAGE = "<html>DCEVM download:<br>IO Error during downloading</html>";
     public static final String CANCEL_TEXT = "Stop downloading";
 
-    private JreStateProvider jreState;
+    @NotNull private JreStateProvider jreState;
 
     //ApplicationImpl thread
     @Override
@@ -44,98 +44,95 @@ public class DcevmStartup implements StartupActivity {
         ApplicationManager.getApplication().runReadAction(new Runnable() {
             @Override
             public void run() {
-                jreState = ApplicationManager.getApplication().getComponent(JreStateProvider.class);
+                jreState = ServiceManager.getService(JreStateProvider.class);
+                System.out.println("jre = " + jreState.isReady());
             }
         });
 
 //        for testing purposes only
-//        jreState.setReady();
         jreState.setUnready();
 
         if (!jreState.isReady()) {
-            ApplicationManager.getApplication().invokeLater(new Runnable() {
+            DownloadConfirmation confirmation = new DownloadConfirmation(new Runnable() {
                 @Override
                 public void run() {
                     downloadAndPatchOpenProjects(project);
                 }
-            });
+            }, null);
+
+            confirmation.askForPermission();
         }
     }
 
     private void downloadAndPatchOpenProjects(final Project project) {
-        int result = Messages.showYesNoDialog(DIALOG_MESSAGE, DIALOG_TITLE, null);
+        //It's executed in a background thread
+        new Task.Backgroundable(project, DIALOG_TITLE, true) {
+            @Override
+            public void run(@NotNull ProgressIndicator indicator) {
+                indicator.setText(INDICATOR_TEXT);
+                try {
+                    String dcevmJreRootDir = InfoProvider.getInstallDirectory();
+                    File dcevmRoot = new File(dcevmJreRootDir);
+                    FileUtil.createDirectory(dcevmRoot);
+                    File downloadedFile = Downloader.downloadDcevm(dcevmJreRootDir, indicator);
+                    jreState.setReady();
 
-        if (result == 0) {
-            //It's executed in a background thread
-            new Task.Backgroundable(project, DIALOG_TITLE, true) {
-                @Override
-                public void run(@NotNull ProgressIndicator indicator) {
-                    indicator.setText(INDICATOR_TEXT);
-                    try {
-                        String dcevmJreRootDir = InfoProvider.getInstallDirectory();
-                        File dcevmRoot = new File(dcevmJreRootDir);
-                        FileUtil.createDirectory(dcevmRoot);
-                        File downloadedFile = Downloader.downloadDcevm(dcevmJreRootDir, indicator);
-                        jreState.setReady();
+                    //TODO delete
+                    System.out.println("DCEVM downloaded into: " + dcevmJreRootDir);
 
-                        //TODO delete
-                        System.out.println("DCEVM downloaded into: " + dcevmJreRootDir);
+                    ZipUtil.extract(downloadedFile, dcevmRoot, null);
+                    FileUtil.delete(downloadedFile);
 
-                        ZipUtil.extract(downloadedFile, dcevmRoot, null);
-                        FileUtil.delete(downloadedFile);
-
-                        //TODO think about it :)
-                        if (!SystemInfo.isWindows) {
-                            String java = dcevmJreRootDir + File.separator + "bin" + File.separator + "java";
-                            System.out.println(java);
-                            FileUtil.setExecutableAttribute(java, true);
-                        }
-
-                    } catch (IOException e) {
-                        deleteDcevmJreDir();
-
-                        //TODO delete
-                        System.out.println("IOException: " + e.getMessage());
-
-                        if (!indicator.isCanceled()) {
-                            ApplicationManager.getApplication().invokeLater(new Runnable() {
-                                @Override
-                                public void run() {
-                                    StatusBar statusBar = WindowManager.getInstance().getStatusBar(project);
-                                    if (statusBar != null) {
-                                        JBPopupFactory.getInstance()
-                                            .createHtmlTextBalloonBuilder(ERROR_MESSAGE, MessageType.ERROR, null)
-                                            .setFadeoutTime(7500)
-                                            .createBalloon()
-                                            .show(RelativePoint.getCenterOf(statusBar.getComponent()),
-                                              Balloon.Position.atRight);
-                                    }
-                                }
-                            });
-                        }
+                    //TODO think about it :)
+                    if (!SystemInfo.isWindows) {
+                        String java = dcevmJreRootDir + File.separator + "bin" + File.separator + "java";
+                        System.out.println(java);
+                        FileUtil.setExecutableAttribute(java, true);
                     }
-                }
 
-                //it's executed in AWT Event thread
-                @Override
-                public void onSuccess() {
-                    if (jreState.isReady()) {
-                        ApplicationManager.getApplication().runWriteAction(new Runnable() {
+                } catch (IOException e) {
+                    deleteDcevmJreDir();
+                    //TODO delete
+                    System.out.println("IOException: " + e.getMessage());
+
+                    if (!indicator.isCanceled()) {
+                        ApplicationManager.getApplication().invokeLater(new Runnable() {
                             @Override
                             public void run() {
-                                patchOpenProjects();
+                                StatusBar statusBar = WindowManager.getInstance().getStatusBar(project);
+                                if (statusBar != null) {
+                                    JBPopupFactory.getInstance()
+                                        .createHtmlTextBalloonBuilder(ERROR_MESSAGE, MessageType.ERROR, null)
+                                        .setFadeoutTime(7500)
+                                        .createBalloon()
+                                        .show(RelativePoint.getCenterOf(statusBar.getComponent()),
+                                                Balloon.Position.atRight);
+                                }
                             }
                         });
                     }
                 }
+            }
 
-                @Override
-                public void onCancel() {
-                    deleteDcevmJreDir();
+            //it's executed in AWT Event thread
+            @Override
+            public void onSuccess() {
+                if (jreState.isReady()) {
+                    ApplicationManager.getApplication().runWriteAction(new Runnable() {
+                        @Override
+                        public void run() {
+                            patchOpenProjects();
+                        }
+                    });
                 }
+            }
 
-            }.setCancelText(CANCEL_TEXT).queue();
-        }
+            @Override
+            public void onCancel() {
+                deleteDcevmJreDir();
+            }
+
+        }.setCancelText(CANCEL_TEXT).queue();
     }
 
     private void patchOpenProjects() {

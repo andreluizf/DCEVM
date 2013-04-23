@@ -2,6 +2,7 @@ package ru.spbau.install;
 
 import com.intellij.ide.IdeBundle;
 import com.intellij.openapi.application.ApplicationManager;
+import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.util.io.UrlConnectionUtil;
@@ -59,7 +60,7 @@ public class Downloader {
             ApplicationManager.getApplication().runReadAction(new Runnable() {
                 @Override
                 public void run() {
-                    ApplicationManager.getApplication().getComponent(JreStateProvider.class).setReady();
+                    ServiceManager.getService(JreStateProvider.class).setReady();
                 }
             });
             return newFile;

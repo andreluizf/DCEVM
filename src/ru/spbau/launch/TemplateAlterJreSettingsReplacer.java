@@ -6,6 +6,7 @@ import com.intellij.execution.configurations.ConfigurationFactory;
 import com.intellij.execution.impl.RunManagerImpl;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.components.ProjectComponent;
+import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.project.Project;
 import org.jetbrains.annotations.NotNull;
 import ru.spbau.install.info.InfoProvider;
@@ -24,7 +25,7 @@ public class TemplateAlterJreSettingsReplacer implements ProjectComponent {
 
     //executed by ApplicationImpl pooled thread
     public void initComponent() {
-        JreStateProvider jreState = ApplicationManager.getApplication().getComponent(JreStateProvider.class);
+        JreStateProvider jreState = ServiceManager.getService(JreStateProvider.class);
         if (jreState.isReady()) {
             ApplicationManager.getApplication().invokeLater(new Runnable() {
                 @Override
