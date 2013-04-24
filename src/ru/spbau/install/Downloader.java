@@ -8,8 +8,8 @@ import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.util.io.UrlConnectionUtil;
 import com.intellij.util.net.HttpConfigurable;
 import com.intellij.util.net.NetUtils;
-import ru.spbau.launch.JreStateProvider;
 import ru.spbau.install.info.InfoProvider;
+import ru.spbau.launch.JreStateProvider;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -22,9 +22,15 @@ import java.net.HttpURLConnection;
 public class Downloader {
     private static final String DOWNLOADED_FILE = "DCEVM.zip";
     private static final String INDICATOR_TEXT = "Downloading DCEVM jre";
+    private InfoProvider infoProvider;
+
+    public Downloader(InfoProvider infoProvider) {
+
+        this.infoProvider = infoProvider;
+    }
 
     //executed from background thread
-    public static File downloadDcevm(String destAddress, final ProgressIndicator pi) throws IOException {
+    public File downloadDcevm(String destAddress, final ProgressIndicator pi) throws IOException {
         final File pluginsTemp = new File(destAddress);
         if (!pluginsTemp.exists() && !pluginsTemp.mkdirs()) {
             throw new IOException(IdeBundle.message("error.cannot.create.temp.dir", pluginsTemp));
@@ -33,7 +39,7 @@ public class Downloader {
         final File file = FileUtil.createTempFile(pluginsTemp, "plugin_", "_download", true, false);
         HttpURLConnection connection = null;
         try {
-            connection = HttpConfigurable.getInstance().openHttpConnection(InfoProvider.getJreUrl());
+            connection = HttpConfigurable.getInstance().openHttpConnection(infoProvider.getInstallDirectory());
             final InputStream is = UrlConnectionUtil.getConnectionInputStream(connection, pi);
             if (is == null) {
                 throw new IOException("Failed to open connection");

@@ -30,9 +30,6 @@
 
   <project-components>
     <!-- Add your project components here -->
-      <component>
-          <implementation-class>ru.spbau.launch.TemplateAlterJreSettingsReplacer</implementation-class>
-      </component>
   </project-components>
 
   <actions>
@@ -45,8 +42,17 @@
 
 
     <!-- Declare the application level service -->
-    <applicationService serviceInterface="ru.spbau.launch.JreStateProvider" serviceImplementation="ru.spbau.launch.JreStateProvider">
+    <applicationService serviceInterface="ru.spbau.launch.JreStateProvider" serviceImplementation="ru.spbau.launch.JreStateProviderImpl">
     </applicationService>
+    <applicationService serviceInterface="ru.spbau.install.Downloader" serviceImplementation="ru.spbau.install.Downloader">
+    </applicationService>
+    <applicationService serviceInterface="ru.spbau.install.info.InfoProvider" serviceImplementation="ru.spbau.install.info.InfoProviderImpl">
+    </applicationService>
+    <applicationService serviceInterface="ru.spbau.launch.JreDownloader" serviceImplementation="ru.spbau.launch.JreDownloader">
+    </applicationService>
+
+
+
   </extensions>
 
 </idea-plugin>

@@ -1,48 +1,14 @@
 package ru.spbau.launch;
 
-import com.intellij.ide.util.PropertiesComponent;
-import com.intellij.openapi.application.ApplicationManager;
-
-
 /**
  * User: user
- * Date: 4/10/13
- * Time: 4:46 PM
+ * Date: 4/24/13
+ * Time: 8:17 PM
  */
-public class JreStateProvider {
-    private static final String DCEVM_DOWNLOAD_STATE = "DCEVM_DOWNLOAD_STATE";
-    private volatile boolean isReady;
+public interface JreStateProvider {
+    boolean isReady();
 
-    public JreStateProvider() {
-        isReady = PropertiesComponent.getInstance().getBoolean(DCEVM_DOWNLOAD_STATE, false);
-    }
+    void setReady();
 
-    public boolean isReady() {
-        return isReady;
-    }
-
-    //It could be executed from everywhere
-    public void setReady() {
-        isReady = true;
-        saveState();
-    }
-
-    public void setUnready() {
-        isReady = false;
-        saveState();
-    }
-
-    private void saveState() {
-        ApplicationManager.getApplication().invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                ApplicationManager.getApplication().runWriteAction(new Runnable() {
-                    @Override
-                    public void run() {
-                        PropertiesComponent.getInstance().setValue(DCEVM_DOWNLOAD_STATE, Boolean.toString(isReady));
-                    }
-                });
-            }
-        });
-    }
+    void setUnready();
 }
