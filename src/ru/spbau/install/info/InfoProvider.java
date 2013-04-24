@@ -27,7 +27,7 @@ public class InfoProvider {
             @Override
             public void run() {
                 PluginId pluginId = PluginManager.getPluginByClassName(InfoProvider.class.getName());
-                IdeaPluginDescriptor descriptor = PluginManager.getPlugin(pluginId);
+                @NotNull IdeaPluginDescriptor descriptor = PluginManager.getPlugin(pluginId);
                 result[0] = descriptor.getPath().getAbsolutePath();
             }
         });

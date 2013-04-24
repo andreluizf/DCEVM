@@ -1,5 +1,6 @@
 package ru.spbau.launch;
 
+import com.intellij.notification.*;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.progress.ProgressIndicator;
@@ -38,9 +39,10 @@ public class DcevmStartup implements StartupActivity {
 
     @NotNull private JreStateProvider jreState;
 
-    //ApplicationImpl thread
+
     @Override
     public void runActivity(final Project project) {
+
         ApplicationManager.getApplication().runReadAction(new Runnable() {
             @Override
             public void run() {
@@ -53,6 +55,7 @@ public class DcevmStartup implements StartupActivity {
         jreState.setUnready();
 
         if (!jreState.isReady()) {
+            Notifications.Bus.register(DownloadConfirmation.GROUP_DISPLAY_ID, NotificationDisplayType.STICKY_BALLOON);
             DownloadConfirmation confirmation = new DownloadConfirmation(new Runnable() {
                 @Override
                 public void run() {

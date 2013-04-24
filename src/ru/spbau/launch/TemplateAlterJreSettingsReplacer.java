@@ -17,7 +17,7 @@ import ru.spbau.install.info.InfoProvider;
  * Time: 8:48 PM
  */
 public class TemplateAlterJreSettingsReplacer implements ProjectComponent {
-    Project project;
+    private final Project project;
 
     public TemplateAlterJreSettingsReplacer(Project project) {
         this.project = project;

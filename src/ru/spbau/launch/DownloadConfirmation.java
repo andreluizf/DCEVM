@@ -1,9 +1,6 @@
 package ru.spbau.launch;
 
-import com.intellij.notification.Notification;
-import com.intellij.notification.NotificationListener;
-import com.intellij.notification.NotificationType;
-import com.intellij.notification.Notifications;
+import com.intellij.notification.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import javax.swing.event.HyperlinkEvent;
@@ -17,11 +14,12 @@ public class DownloadConfirmation {
 
     public static final String AGREE = "allow";
     public static final String DECLINE = "decline";
+    public static final String GROUP_DISPLAY_ID = "Dcevm plugin";
 
     @Nullable
-    private Runnable onAllowDownload;
+    private final Runnable onAllowDownload;
     @Nullable
-    private Runnable onDeclineDownload;
+    private final Runnable onDeclineDownload;
 
 
     public DownloadConfirmation(@Nullable Runnable onAllowDownload, @Nullable Runnable onDeclineDownload) {
@@ -30,7 +28,7 @@ public class DownloadConfirmation {
     }
 
     public void askForPermission() {
-        Notifications.Bus.notify(new Notification("Dcevm Plugin",
+        Notifications.Bus.notify(new Notification(GROUP_DISPLAY_ID,
                 "Dcevm jre download confirmation",
                 getText(), NotificationType.INFORMATION,
                 new DownloadConfirmationListener()));
