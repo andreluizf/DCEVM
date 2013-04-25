@@ -3,6 +3,8 @@ package ru.spbau.launch;
 import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.application.ApplicationManager;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 
 /**
  * User: user
@@ -12,6 +14,17 @@ import com.intellij.openapi.application.ApplicationManager;
 public class JreStateProviderImpl implements JreStateProvider {
     private static final String DCEVM_DOWNLOAD_STATE = "DCEVM_DOWNLOAD_STATE";
     private volatile boolean isReady;
+    private AtomicBoolean downloadStarted = new AtomicBoolean(false);
+
+    @Override
+    public boolean tryStartDownloading() {
+        return downloadStarted.compareAndSet(false, true);
+    }
+
+    @Override
+    public void cancelDownload() {
+        downloadStarted.set(false);
+    }
 
     public JreStateProviderImpl() {
         isReady = PropertiesComponent.getInstance().getBoolean(DCEVM_DOWNLOAD_STATE, false);

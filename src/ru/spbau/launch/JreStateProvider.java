@@ -6,9 +6,15 @@ package ru.spbau.launch;
  * Time: 8:17 PM
  */
 public interface JreStateProvider {
+
     boolean isReady();
 
     void setReady();
 
     void setUnready();
+
+    boolean tryStartDownloading();
+
+    void cancelDownload();
+
 }

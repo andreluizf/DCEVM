@@ -1,4 +1,4 @@
-package ru.spbau.install;
+package ru.spbau.install.download.util;
 
 import com.intellij.ide.IdeBundle;
 import com.intellij.openapi.application.ApplicationManager;
@@ -19,18 +19,12 @@ import java.net.HttpURLConnection;
  * Date: 4/10/13
  * Time: 6:53 PM
  */
-public class Downloader {
+public class HttpDownloader {
     private static final String DOWNLOADED_FILE = "DCEVM.zip";
     private static final String INDICATOR_TEXT = "Downloading DCEVM jre";
-    private InfoProvider infoProvider;
-
-    public Downloader(InfoProvider infoProvider) {
-
-        this.infoProvider = infoProvider;
-    }
 
     //executed from background thread
-    public File downloadDcevm(String destAddress, final ProgressIndicator pi) throws IOException {
+    public static File download(String url, String destAddress, final ProgressIndicator pi) throws IOException {
         final File pluginsTemp = new File(destAddress);
         if (!pluginsTemp.exists() && !pluginsTemp.mkdirs()) {
             throw new IOException(IdeBundle.message("error.cannot.create.temp.dir", pluginsTemp));
@@ -39,7 +33,7 @@ public class Downloader {
         final File file = FileUtil.createTempFile(pluginsTemp, "plugin_", "_download", true, false);
         HttpURLConnection connection = null;
         try {
-            connection = HttpConfigurable.getInstance().openHttpConnection(infoProvider.getInstallDirectory());
+            connection = HttpConfigurable.getInstance().openHttpConnection(url);
             final InputStream is = UrlConnectionUtil.getConnectionInputStream(connection, pi);
             if (is == null) {
                 throw new IOException("Failed to open connection");

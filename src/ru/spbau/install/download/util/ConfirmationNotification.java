@@ -1,6 +1,7 @@
-package ru.spbau.launch;
+package ru.spbau.install.download.util;
 
 import com.intellij.notification.*;
+import com.intellij.openapi.application.ApplicationManager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import javax.swing.event.HyperlinkEvent;
@@ -10,7 +11,7 @@ import javax.swing.event.HyperlinkEvent;
  * Date: 4/23/13
  * Time: 5:33 PM
  */
-public class DownloadConfirmation {
+public class ConfirmationNotification {
 
     public static final String AGREE = "allow";
     public static final String DECLINE = "decline";
@@ -22,16 +23,23 @@ public class DownloadConfirmation {
     private final Runnable onDeclineDownload;
 
 
-    public DownloadConfirmation(@Nullable Runnable onAllowDownload, @Nullable Runnable onDeclineDownload) {
+    public ConfirmationNotification(@Nullable Runnable onAllowDownload, @Nullable Runnable onDeclineDownload) {
         this.onAllowDownload = onAllowDownload;
         this.onDeclineDownload = onDeclineDownload;
     }
 
     public void askForPermission() {
-        Notifications.Bus.notify(new Notification(GROUP_DISPLAY_ID,
-                "Dcevm jre download confirmation",
-                getText(), NotificationType.INFORMATION,
-                new DownloadConfirmationListener()));
+        ApplicationManager.getApplication().invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                Notifications.Bus.notify(new Notification(GROUP_DISPLAY_ID,
+                        "Dcevm jre download confirmation",
+                        getText(), NotificationType.INFORMATION,
+                        new DownloadConfirmationListener()));
+
+                System.out.println("Notification notified");
+            }
+        });
     }
 
 

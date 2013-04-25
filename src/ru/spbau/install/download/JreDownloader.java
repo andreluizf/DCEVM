@@ -1,23 +1,21 @@
-package ru.spbau.launch;
+package ru.spbau.install.download;
 
+import com.intellij.notification.Notification;
+import com.intellij.notification.NotificationType;
+import com.intellij.notification.Notifications;
 import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.components.ServiceManager;
+import com.intellij.openapi.progress.ProcessCanceledException;
 import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.progress.Task;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.ui.MessageType;
-import com.intellij.openapi.ui.popup.Balloon;
-import com.intellij.openapi.ui.popup.JBPopupFactory;
 import com.intellij.openapi.util.SystemInfo;
 import com.intellij.openapi.util.io.FileUtil;
-import com.intellij.openapi.wm.StatusBar;
-import com.intellij.openapi.wm.WindowManager;
-import com.intellij.ui.awt.RelativePoint;
 import com.intellij.util.io.ZipUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.spbau.install.Downloader;
+import ru.spbau.install.download.util.HttpDownloader;
 import ru.spbau.install.info.InfoProvider;
+import ru.spbau.launch.JreStateProvider;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,11 +27,12 @@ import java.io.IOException;
  */
 public class JreDownloader {
 
-    public static final String DIALOG_MESSAGE = "Download dcevm?";
     public static final String DIALOG_TITLE = "DCEVM plugin";
     public static final String INDICATOR_TEXT = "Downloading DCEVM jre";
-    public static final String ERROR_MESSAGE = "<html>DCEVM download:<br>IO Error during downloading</html>";
     public static final String CANCEL_TEXT = "Stop downloading";
+    public static final String DOWNLOAD_ERROR = "Dcevm download error";
+    public static final String ERROR_DESCRIPTION = "IO error while downloading happened";
+
 
     private final String homeDir;
     private final String jreUrl;
@@ -48,10 +47,18 @@ public class JreDownloader {
         this.jreState = jreState;
     }
 
+    /**
+     *
+     * @param onSuccessCallback Executed on AWT Event Thread
+     */
     public void setOnSuccessCallback(@Nullable Runnable onSuccessCallback) {
         this.onSuccessCallback = onSuccessCallback;
     }
 
+    /**
+     *
+     * @param onCancelCallback Executed on AWR Event Thread
+     */
     public void setOnCancelCallback(@Nullable Runnable onCancelCallback) {
         this.onCancelCallback = onCancelCallback;
     }
@@ -65,8 +72,7 @@ public class JreDownloader {
                 try {
                     File dcevmRoot = new File(homeDir);
                     FileUtil.createDirectory(dcevmRoot);
-                    @NotNull Downloader downloader = ServiceManager.getService(Downloader.class);
-                    File downloadedFile = downloader.downloadDcevm(homeDir, indicator);
+                    File downloadedFile = HttpDownloader.download(jreUrl, homeDir, indicator);
 
                     jreState.setReady();
 
@@ -89,23 +95,18 @@ public class JreDownloader {
                     System.out.println("IOException: " + e.getMessage());
 
                     if (!indicator.isCanceled()) {
-                        ApplicationManager.getApplication().invokeLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                StatusBar statusBar = WindowManager.getInstance().getStatusBar(project);
-                                if (statusBar != null) {
-                                    JBPopupFactory.getInstance()
-                                            .createHtmlTextBalloonBuilder(ERROR_MESSAGE, MessageType.ERROR, null)
-                                            .setFadeoutTime(7500)
-                                            .createBalloon()
-                                            .show(RelativePoint.getCenterOf(statusBar.getComponent()),
-                                                    Balloon.Position.atRight);
-                                }
-                            }
-                        });
+                        Notifications.Bus.notify(new Notification(DIALOG_TITLE, DOWNLOAD_ERROR, ERROR_DESCRIPTION, NotificationType.ERROR));
                     } else {
                         onCancelCallback.run();
                     }
+                } catch (ProcessCanceledException e) {
+                    ApplicationManager.getApplication().runReadAction(new Runnable() {
+                        @Override
+                        public void run() {
+                            jreState.cancelDownload();
+                        }
+                    });
+                    throw e;
                 }
             }
 
