@@ -42,7 +42,7 @@
 
 
     <!-- Declare the application level service -->
-    <applicationService serviceInterface="ru.spbau.launch.JreStateProvider" serviceImplementation="ru.spbau.launch.JreStateProviderImpl">
+    <applicationService serviceInterface="ru.spbau.launch.util.JreStateProvider" serviceImplementation="ru.spbau.launch.util.JreStateProviderImpl">
     </applicationService>
     <applicationService serviceInterface="ru.spbau.install.download.util.HttpDownloader" serviceImplementation="ru.spbau.install.download.util.HttpDownloader">
     </applicationService>
@@ -50,7 +50,7 @@
     </applicationService>
     <applicationService serviceInterface="ru.spbau.install.download.JreDownloader" serviceImplementation="ru.spbau.install.download.JreDownloader">
     </applicationService>
-    <applicationService serviceInterface="ru.spbau.launch.TemplateReplacer" serviceImplementation="ru.spbau.launch.TemplateReplacer">
+    <applicationService serviceInterface="ru.spbau.launch.util.TemplateReplacer" serviceImplementation="ru.spbau.launch.util.TemplateReplacer">
     </applicationService>
     <applicationService serviceInterface="ru.spbau.install.download.DownloadManager" serviceImplementation="ru.spbau.install.download.DownloadManager">
     </applicationService>

@@ -1,7 +1,8 @@
-package ru.spbau.launch;
+package ru.spbau.launch.util;
 
 import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.application.ApplicationManager;
+import ru.spbau.launch.util.JreStateProvider;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 

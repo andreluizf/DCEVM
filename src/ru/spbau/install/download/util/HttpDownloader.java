@@ -8,8 +8,7 @@ import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.util.io.UrlConnectionUtil;
 import com.intellij.util.net.HttpConfigurable;
 import com.intellij.util.net.NetUtils;
-import ru.spbau.install.info.InfoProvider;
-import ru.spbau.launch.JreStateProvider;
+import ru.spbau.launch.util.JreStateProvider;
 
 import java.io.*;
 import java.net.HttpURLConnection;

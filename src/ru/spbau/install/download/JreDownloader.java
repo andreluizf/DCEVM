@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.spbau.install.download.util.HttpDownloader;
 import ru.spbau.install.info.InfoProvider;
-import ru.spbau.launch.JreStateProvider;
+import ru.spbau.launch.util.JreStateProvider;
 
 import java.io.File;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package ru.spbau.launch;
+package ru.spbau.launch.util;
 
 /**
  * User: user

@@ -6,8 +6,8 @@ import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.project.Project;
 import ru.spbau.install.download.util.ConfirmationNotification;
-import ru.spbau.launch.JreStateProvider;
-import ru.spbau.launch.TemplateReplacer;
+import ru.spbau.launch.util.JreStateProvider;
+import ru.spbau.launch.util.TemplateReplacer;
 
 /**
  * User: user
@@ -15,18 +15,9 @@ import ru.spbau.launch.TemplateReplacer;
  * Time: 3:52 PM
  */
 public class DownloadManager {
+
     public void requestForDownload(final Project project) {
-        ApplicationManager.getApplication().invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                ApplicationManager.getApplication().runWriteAction(new Runnable() {
-                    @Override
-                    public void run() {
-                        Notifications.Bus.register(ConfirmationNotification.GROUP_DISPLAY_ID, NotificationDisplayType.STICKY_BALLOON);
-                    }
-                });
-            }
-        });
+        Notifications.Bus.register(ConfirmationNotification.GROUP_DISPLAY_ID, NotificationDisplayType.STICKY_BALLOON);
         ConfirmationNotification confirmation = new ConfirmationNotification(new DownloadAndPatch(project), null);
         confirmation.askForPermission();
     }
@@ -61,7 +52,7 @@ public class DownloadManager {
                     ServiceManager.getService(JreStateProvider.class).cancelDownload();
                 }
             });
-            System.out.println("now i wanna start downloading...");
+            System.out.println("Starting downloading...");
             jreDownloader.download(project);
         }
     }

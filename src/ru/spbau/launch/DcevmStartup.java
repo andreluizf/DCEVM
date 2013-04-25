@@ -5,6 +5,8 @@ import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.startup.StartupActivity;
 import ru.spbau.install.download.DownloadManager;
+import ru.spbau.launch.util.JreStateProvider;
+import ru.spbau.launch.util.TemplateReplacer;
 
 /**
  * User: yarik
@@ -28,6 +30,7 @@ public class DcevmStartup implements StartupActivity {
     @Override
     public void runActivity(final Project project) {
         System.out.println("JRE state: " + jreState.isReady());
+        jreState.setUnready();
 
         if (jreState.isReady()) {
             ApplicationManager.getApplication().invokeLater(new Runnable() {

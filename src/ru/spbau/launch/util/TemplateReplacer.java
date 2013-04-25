@@ -1,4 +1,4 @@
-package ru.spbau.launch;
+package ru.spbau.launch.util;
 
 import com.intellij.execution.application.ApplicationConfiguration;
 import com.intellij.execution.application.ApplicationConfigurationType;
