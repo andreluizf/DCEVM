@@ -26,16 +26,10 @@
 
   <application-components>
     <!-- Add your application components here -->
-      <component>
-          <implementation-class>ru.spbau.launch.JreStateProvider</implementation-class>
-      </component>
   </application-components>
 
   <project-components>
     <!-- Add your project components here -->
-      <component>
-          <implementation-class>ru.spbau.launch.TemplateAlterJreSettingsReplacer</implementation-class>
-      </component>
   </project-components>
 
   <actions>
@@ -45,5 +39,26 @@
   <extensions defaultExtensionNs="com.intellij">
     <!-- Add your extensions here -->
     <postStartupActivity implementation="ru.spbau.launch.DcevmStartup"></postStartupActivity>
+
+
+    <!-- Declare the application level service -->
+    <applicationService serviceInterface="ru.spbau.launch.util.JreStateProvider" serviceImplementation="ru.spbau.launch.util.JreStateProviderImpl">
+    </applicationService>
+    <applicationService serviceInterface="ru.spbau.install.download.util.HttpDownloader" serviceImplementation="ru.spbau.install.download.util.HttpDownloader">
+    </applicationService>
+    <applicationService serviceInterface="ru.spbau.install.info.InfoProvider" serviceImplementation="ru.spbau.install.info.InfoProviderImpl">
+    </applicationService>
+    <applicationService serviceInterface="ru.spbau.install.download.JreDownloader" serviceImplementation="ru.spbau.install.download.JreDownloader">
+    </applicationService>
+    <applicationService serviceInterface="ru.spbau.launch.util.TemplateReplacer" serviceImplementation="ru.spbau.launch.util.TemplateReplacer">
+    </applicationService>
+    <applicationService serviceInterface="ru.spbau.install.download.DownloadManager" serviceImplementation="ru.spbau.install.download.DownloadManager">
+    </applicationService>
+    <applicationService serviceInterface="ru.spbau.install.info.specific.JreUrlsProvider" serviceImplementation="ru.spbau.install.info.specific.JreUrlsProviderImpl">
+    </applicationService>
+
+
+
   </extensions>
+
 </idea-plugin>
