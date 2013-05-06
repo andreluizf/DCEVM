@@ -1,7 +1,8 @@
 package ru.spbau.install.download.util;
 
 import com.intellij.notification.*;
-import com.intellij.openapi.application.ApplicationManager;
+import com.intellij.openapi.project.Project;
+import com.intellij.util.ui.UIUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import javax.swing.event.HyperlinkEvent;
@@ -22,22 +23,22 @@ public class ConfirmationNotification {
     @Nullable
     private final Runnable onDeclineDownload;
 
+    private final Project myProject;
 
-    public ConfirmationNotification(@Nullable Runnable onAllowDownload, @Nullable Runnable onDeclineDownload) {
+    public ConfirmationNotification(final Project myProject, @Nullable Runnable onAllowDownload, @Nullable Runnable onDeclineDownload) {
         this.onAllowDownload = onAllowDownload;
         this.onDeclineDownload = onDeclineDownload;
+        this.myProject = myProject;
     }
 
     public void askForPermission() {
-        ApplicationManager.getApplication().invokeLater(new Runnable() {
+        UIUtil.invokeLaterIfNeeded(new Runnable() {
             @Override
             public void run() {
-                Notifications.Bus.notify(new Notification(GROUP_DISPLAY_ID,
+                new Notification(GROUP_DISPLAY_ID,
                         "Dcevm jre download confirmation",
                         getText(), NotificationType.INFORMATION,
-                        new DownloadConfirmationListener()));
-
-                System.out.println("Notification notified");
+                        new DownloadConfirmationListener()).notify(myProject);
             }
         });
     }

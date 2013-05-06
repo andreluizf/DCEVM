@@ -28,9 +28,6 @@
     <!-- Add your application components here -->
   </application-components>
 
-  <project-components>
-    <!-- Add your project components here -->
-  </project-components>
 
   <actions>
     <!-- Add your actions here -->
@@ -50,7 +47,7 @@
     </applicationService>
     <applicationService serviceInterface="ru.spbau.install.download.JreDownloader" serviceImplementation="ru.spbau.install.download.JreDownloader">
     </applicationService>
-    <applicationService serviceInterface="ru.spbau.launch.util.TemplateReplacer" serviceImplementation="ru.spbau.launch.util.TemplateReplacer">
+    <applicationService serviceInterface="ru.spbau.launch.util.RunConfigurationManipulator" serviceImplementation="ru.spbau.launch.util.RunConfigurationManipulator">
     </applicationService>
     <applicationService serviceInterface="ru.spbau.install.download.DownloadManager" serviceImplementation="ru.spbau.install.download.DownloadManager">
     </applicationService>

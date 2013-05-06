@@ -4,9 +4,11 @@ import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.startup.StartupActivity;
+import com.intellij.util.SystemProperties;
+import org.jetbrains.annotations.NotNull;
 import ru.spbau.install.download.DownloadManager;
 import ru.spbau.launch.util.JreStateProvider;
-import ru.spbau.launch.util.TemplateReplacer;
+import ru.spbau.launch.util.RunConfigurationManipulator;
 
 /**
  * User: yarik
@@ -15,31 +17,28 @@ import ru.spbau.launch.util.TemplateReplacer;
  */
 public class DcevmStartup implements StartupActivity {
 
-    private static JreStateProvider jreState;
+    @NotNull
+    private JreStateProvider myStateProvider;
 
-    static {
-        ApplicationManager.getApplication().runReadAction(new Runnable() {
-            @Override
-            public void run() {
-                jreState = ServiceManager.getService(JreStateProvider.class);
-            }
-        });
+    public DcevmStartup(@NotNull JreStateProvider stateProvider) {
+        myStateProvider = stateProvider;
     }
-
 
     @Override
     public void runActivity(final Project project) {
-        System.out.println("JRE state: " + jreState.isReady());
-        jreState.setUnready();
+        if (SystemProperties.getBooleanProperty("always.download.dcevm", false)) {
+            myStateProvider.setUnready();
+        }
 
-        if (jreState.isReady()) {
+        if (myStateProvider.isReady()) {
             ApplicationManager.getApplication().invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     ApplicationManager.getApplication().runWriteAction(new Runnable() {
                         @Override
                         public void run() {
-                            ServiceManager.getService(TemplateReplacer.class).patch(project);
+                            RunConfigurationManipulator service = ServiceManager.getService(RunConfigurationManipulator.class);
+                            service.replaceTemplateConfiguration(project);
                         }
                     });
                 }
@@ -47,7 +46,7 @@ public class DcevmStartup implements StartupActivity {
             return;
         }
 
-        if (jreState.tryStartDownloading()) {
+        if (myStateProvider.tryStartDownloading()) {
             ApplicationManager.getApplication().runReadAction(new Runnable() {
                 @Override
                 public void run() {

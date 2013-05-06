@@ -7,7 +7,7 @@ import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.project.Project;
 import ru.spbau.install.download.util.ConfirmationNotification;
 import ru.spbau.launch.util.JreStateProvider;
-import ru.spbau.launch.util.TemplateReplacer;
+import ru.spbau.launch.util.RunConfigurationManipulator;
 
 /**
  * User: user
@@ -18,16 +18,16 @@ public class DownloadManager {
 
     public void requestForDownload(final Project project) {
         Notifications.Bus.register(ConfirmationNotification.GROUP_DISPLAY_ID, NotificationDisplayType.STICKY_BALLOON);
-        ConfirmationNotification confirmation = new ConfirmationNotification(new DownloadAndPatch(project), null);
+        ConfirmationNotification confirmation = new ConfirmationNotification(project, new DownloadAndPatch(project), null);
         confirmation.askForPermission();
     }
 
 
     private class DownloadAndPatch implements Runnable {
-        private Project project;
+        private final Project myProject;
 
-        public DownloadAndPatch(Project project) {
-            this.project = project;
+        public DownloadAndPatch(Project myProject) {
+            this.myProject = myProject;
         }
 
         @Override
@@ -39,8 +39,9 @@ public class DownloadManager {
                     ApplicationManager.getApplication().runWriteAction(new Runnable() {
                         @Override
                         public void run() {
-                            ServiceManager.getService(TemplateReplacer.class).patchOpenProjects();
-                            System.out.println("open projects patched");
+                            RunConfigurationManipulator manipulator = ServiceManager.getService(RunConfigurationManipulator.class);
+                            manipulator.replaceTemplateConfigurationOnOpenedProjects();
+                            manipulator.createNewConfiguration(myProject);
                         }
                     });
                 }
@@ -48,12 +49,10 @@ public class DownloadManager {
             jreDownloader.setOnCancelCallback(new Runnable() {
                 @Override
                 public void run() {
-                    System.out.println("CANCEL!");
                     ServiceManager.getService(JreStateProvider.class).cancelDownload();
                 }
             });
-            System.out.println("Starting downloading...");
-            jreDownloader.download(project);
+            jreDownloader.download(myProject);
         }
     }
 

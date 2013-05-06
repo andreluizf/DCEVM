@@ -2,7 +2,6 @@ package ru.spbau.install.download;
 
 import com.intellij.notification.Notification;
 import com.intellij.notification.NotificationType;
-import com.intellij.notification.Notifications;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.progress.ProcessCanceledException;
 import com.intellij.openapi.progress.ProgressIndicator;
@@ -34,11 +33,18 @@ public class JreDownloader {
     public static final String ERROR_DESCRIPTION = "IO error while downloading happened";
 
 
+    @NotNull
     private final String homeDir;
+
+    @Nullable
     private final String jreUrl;
+
     private JreStateProvider jreState;
 
+    @Nullable
     private Runnable onSuccessCallback;
+
+    @Nullable
     private Runnable onCancelCallback;
 
     public JreDownloader(InfoProvider infoProvider, JreStateProvider jreState) {
@@ -68,6 +74,10 @@ public class JreDownloader {
         new Task.Backgroundable(project, DIALOG_TITLE, true) {
             @Override
             public void run(@NotNull ProgressIndicator indicator) {
+                if (jreUrl == null) {
+                    new Notification(DIALOG_TITLE, "Dcevm jre url not found", ERROR_DESCRIPTION, NotificationType.ERROR).notify(project);
+                    return;
+                }
                 indicator.setText(INDICATOR_TEXT);
                 try {
                     File dcevmRoot = new File(homeDir);
@@ -76,28 +86,22 @@ public class JreDownloader {
 
                     jreState.setReady();
 
-                    //TODO delete
-                    System.out.println("DCEVM downloaded into: " + homeDir);
-
                     ZipUtil.extract(downloadedFile, dcevmRoot, null);
                     FileUtil.delete(downloadedFile);
 
                     //TODO think about it :)
                     if (!SystemInfo.isWindows) {
                         String java = homeDir + File.separator + "bin" + File.separator + "java";
-                        System.out.println(java);
                         FileUtil.setExecutableAttribute(java, true);
                     }
 
                 } catch (IOException e) {
                     deleteDcevmJreDir();
-                    //TODO delete
-                    System.out.println("IOException: " + e.getMessage());
-
                     if (!indicator.isCanceled()) {
-                        Notifications.Bus.notify(new Notification(DIALOG_TITLE, DOWNLOAD_ERROR, ERROR_DESCRIPTION, NotificationType.ERROR));
+                        new Notification(DIALOG_TITLE, DOWNLOAD_ERROR, ERROR_DESCRIPTION, NotificationType.ERROR).notify(project);
                     } else {
-                        onCancelCallback.run();
+                        if (onCancelCallback != null)
+                            onCancelCallback.run();
                     }
                 } catch (ProcessCanceledException e) {
                     ApplicationManager.getApplication().runReadAction(new Runnable() {
@@ -134,8 +138,6 @@ public class JreDownloader {
 
     private void deleteDcevmJreDir() {
         File root = new File(homeDir);
-        //TODO delete
-        System.out.println("Deleting " + root.getAbsolutePath());
         FileUtil.delete(root);
     }
 
