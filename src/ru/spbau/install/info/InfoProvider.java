@@ -10,12 +10,12 @@ import org.jetbrains.annotations.Nullable;
  */
 public interface InfoProvider {
 
-    /**
-     * @return url for downloading dcevm jre for current platform
-     */
-    @Nullable
-    String getJreUrl();
+  /**
+   * @return zip archive url containing dcevm jre for current platform
+   */
+  @Nullable
+  String getJreUrl();
 
-    @NotNull
-    String getInstallDirectory();
+  @NotNull
+  String getInstallDirectory();
 }

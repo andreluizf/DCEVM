@@ -16,49 +16,50 @@ import ru.spbau.install.info.InfoProvider;
  * Time: 3:10 PM
  */
 public class RunConfigurationManipulator {
-    public static final String NEW_RUN_CONFIGURATION_NAME = "DCEVM";
-    private InfoProvider myInfoProvider;
+  public static final String NEW_RUN_CONFIGURATION_NAME = "DCEVM";
+  private InfoProvider myInfoProvider;
 
-    public RunConfigurationManipulator(InfoProvider infoProvider) {
-        this.myInfoProvider = infoProvider;
-    }
+  public RunConfigurationManipulator(InfoProvider infoProvider) {
+    this.myInfoProvider = infoProvider;
+  }
 
-    public void replaceTemplateConfigurationOnOpenedProjects() {
-        String alterJrePath = myInfoProvider.getInstallDirectory();
-        Project[] openProjects = ProjectManager.getInstance().getOpenProjects();
-        for (Project project: openProjects) {
-            replaceTemplateWith(project, alterJrePath, true);
-        }
+  public void replaceTemplateConfigurationOnOpenedProjects() {
+    String alterJrePath = myInfoProvider.getInstallDirectory();
+    Project[] openProjects = ProjectManager.getInstance().getOpenProjects();
+    for (Project project : openProjects) {
+      replaceTemplateWith(project, alterJrePath, true);
     }
+  }
 
-    public void replaceTemplateConfiguration(Project project) {
-        replaceTemplateWith(project, myInfoProvider.getInstallDirectory(), true);
-    }
+  public void replaceTemplateConfiguration(Project project) {
+    replaceTemplateWith(project, myInfoProvider.getInstallDirectory(), true);
+  }
 
-    public void createNewConfiguration(Project project) {
-        RunnerAndConfigurationSettings newRunConfiguration;
-        newRunConfiguration = RunManager.getInstance(project).createRunConfiguration(NEW_RUN_CONFIGURATION_NAME, getApplicationConfigurationFactory());
-        ((RunManagerImpl)RunManager.getInstance(project)).addConfiguration(newRunConfiguration, false);
-    }
+  public void createNewConfiguration(Project project) {
+    RunnerAndConfigurationSettings newRunConfiguration;
+    newRunConfiguration =
+      RunManager.getInstance(project).createRunConfiguration(NEW_RUN_CONFIGURATION_NAME, getApplicationConfigurationFactory());
+    ((RunManagerImpl)RunManager.getInstance(project)).addConfiguration(newRunConfiguration, false);
+  }
 
-    private static ConfigurationFactory getApplicationConfigurationFactory() {
-        return ApplicationConfigurationType.getInstance().getConfigurationFactories()[0];
-    }
+  private static ConfigurationFactory getApplicationConfigurationFactory() {
+    return ApplicationConfigurationType.getInstance().getConfigurationFactories()[0];
+  }
 
-    private static ApplicationConfiguration getTemplateApplicationConfiguration(Project project) {
-        RunManagerImpl runManager = (RunManagerImpl)RunManagerImpl.getInstance(project);
-        ConfigurationFactory factory = getApplicationConfigurationFactory();
-        return (ApplicationConfiguration)runManager.getConfigurationTemplate(factory).getConfiguration();
-    }
+  private static ApplicationConfiguration getTemplateApplicationConfiguration(Project project) {
+    RunManagerImpl runManager = (RunManagerImpl)RunManagerImpl.getInstance(project);
+    ConfigurationFactory factory = getApplicationConfigurationFactory();
+    return (ApplicationConfiguration)runManager.getConfigurationTemplate(factory).getConfiguration();
+  }
 
-    public static void replaceTemplateWith(Project project, String alterJrePath, boolean enabled) {
-        ApplicationConfiguration templateApplicationConfig = getTemplateApplicationConfiguration(project);
-        patchConfiguration(templateApplicationConfig, alterJrePath, enabled);
-    }
+  public static void replaceTemplateWith(Project project, String alterJrePath, boolean enabled) {
+    ApplicationConfiguration templateApplicationConfig = getTemplateApplicationConfiguration(project);
+    patchConfiguration(templateApplicationConfig, alterJrePath, enabled);
+  }
 
-    private static void patchConfiguration(ApplicationConfiguration configuration, String alterJrePath, boolean enabled) {
-        configuration.ALTERNATIVE_JRE_PATH = alterJrePath;
-        configuration.ALTERNATIVE_JRE_PATH_ENABLED = enabled;
-    }
+  private static void patchConfiguration(ApplicationConfiguration configuration, String alterJrePath, boolean enabled) {
+    configuration.ALTERNATIVE_JRE_PATH = alterJrePath;
+    configuration.ALTERNATIVE_JRE_PATH_ENABLED = enabled;
+  }
 
 }

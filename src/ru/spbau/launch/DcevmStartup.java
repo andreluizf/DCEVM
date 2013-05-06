@@ -17,43 +17,43 @@ import ru.spbau.launch.util.RunConfigurationManipulator;
  */
 public class DcevmStartup implements StartupActivity {
 
-    @NotNull
-    private JreStateProvider myStateProvider;
+  @NotNull
+  private JreStateProvider myStateProvider;
 
-    public DcevmStartup(@NotNull JreStateProvider stateProvider) {
-        myStateProvider = stateProvider;
+  public DcevmStartup(@NotNull JreStateProvider stateProvider) {
+    myStateProvider = stateProvider;
+  }
+
+  @Override
+  public void runActivity(final Project project) {
+    if (SystemProperties.getBooleanProperty("always.download.dcevm", false)) {
+      myStateProvider.setUnready();
     }
 
-    @Override
-    public void runActivity(final Project project) {
-        if (SystemProperties.getBooleanProperty("always.download.dcevm", false)) {
-            myStateProvider.setUnready();
+    if (myStateProvider.isReady()) {
+      ApplicationManager.getApplication().invokeLater(new Runnable() {
+        @Override
+        public void run() {
+          ApplicationManager.getApplication().runWriteAction(new Runnable() {
+            @Override
+            public void run() {
+              RunConfigurationManipulator service = ServiceManager.getService(RunConfigurationManipulator.class);
+              service.replaceTemplateConfiguration(project);
+            }
+          });
         }
-
-        if (myStateProvider.isReady()) {
-            ApplicationManager.getApplication().invokeLater(new Runnable() {
-                @Override
-                public void run() {
-                    ApplicationManager.getApplication().runWriteAction(new Runnable() {
-                        @Override
-                        public void run() {
-                            RunConfigurationManipulator service = ServiceManager.getService(RunConfigurationManipulator.class);
-                            service.replaceTemplateConfiguration(project);
-                        }
-                    });
-                }
-            });
-            return;
-        }
-
-        if (myStateProvider.tryStartDownloading()) {
-            ApplicationManager.getApplication().runReadAction(new Runnable() {
-                @Override
-                public void run() {
-                    ServiceManager.getService(DownloadManager.class).requestForDownload(project);
-                }
-            });
-        }
+      });
+      return;
     }
+
+    if (myStateProvider.tryStartDownloading()) {
+      ApplicationManager.getApplication().runReadAction(new Runnable() {
+        @Override
+        public void run() {
+          ServiceManager.getService(DownloadManager.class).requestForDownload(project);
+        }
+      });
+    }
+  }
 
 }

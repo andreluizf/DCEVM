@@ -18,44 +18,44 @@ import java.io.File;
  */
 public class InfoProviderImpl implements InfoProvider {
 
-    private static final String JRE_DIRECTORY = "DCEVM_JRE";
-    private static final String INSTALL_DIRECTORY = getPluginDirectory() + File.separator + JRE_DIRECTORY;
+  private static final String JRE_DIRECTORY = "DCEVM_JRE";
+  private static final String INSTALL_DIRECTORY = getPluginDirectory() + File.separator + JRE_DIRECTORY;
 
-    private JreUrlsProvider myUrlProvider;
+  private JreUrlsProvider myUrlProvider;
 
-    public InfoProviderImpl(JreUrlsProvider myUrlProvider) {
-        this.myUrlProvider = myUrlProvider;
-    }
+  public InfoProviderImpl(JreUrlsProvider myUrlProvider) {
+    this.myUrlProvider = myUrlProvider;
+  }
 
-    private static String getPluginDirectory() {
-        PluginId pluginId = PluginManager.getPluginByClassName(InfoProviderImpl.class.getName());
-        IdeaPluginDescriptor descriptor = PluginManager.getPlugin(pluginId);
-        assert(descriptor != null);
-        return descriptor.getPath().getAbsolutePath();
-    }
+  private static String getPluginDirectory() {
+    PluginId pluginId = PluginManager.getPluginByClassName(InfoProviderImpl.class.getName());
+    IdeaPluginDescriptor descriptor = PluginManager.getPlugin(pluginId);
+    assert (descriptor != null);
+    return descriptor.getPath().getAbsolutePath();
+  }
 
-    @Override
-    @Nullable
-    public String getJreUrl() {
-        if (SystemInfo.is32Bit) {
-            if (SystemInfo.isLinux) {
-                return null;
-            }
-        }
-        if (SystemInfo.is64Bit) {
-            if (SystemInfo.isLinux) {
-                return myUrlProvider.getLinux64Url();
-            }
-            if (SystemInfo.isMac) {
-                return myUrlProvider.getMacOsUrl();
-            }
-        }
+  @Override
+  @Nullable
+  public String getJreUrl() {
+    if (SystemInfo.is32Bit) {
+      if (SystemInfo.isLinux) {
         return null;
+      }
     }
+    if (SystemInfo.is64Bit) {
+      if (SystemInfo.isLinux) {
+        return myUrlProvider.getLinux64Url();
+      }
+      if (SystemInfo.isMac) {
+        return myUrlProvider.getMacOsUrl();
+      }
+    }
+    return null;
+  }
 
-    @Override
-    @NotNull
-    public String getInstallDirectory() {
-        return INSTALL_DIRECTORY;
-    }
+  @Override
+  @NotNull
+  public String getInstallDirectory() {
+    return INSTALL_DIRECTORY;
+  }
 }
