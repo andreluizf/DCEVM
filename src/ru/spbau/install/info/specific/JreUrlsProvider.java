@@ -6,7 +6,7 @@ package ru.spbau.install.info.specific;
  * Time: 7:06 PM
  */
 public interface JreUrlsProvider {
-    String getLinuxUrl();
+  String getLinux64Url();
 
-    String getMacOsUrl();
+  String getMacOsUrl();
 }

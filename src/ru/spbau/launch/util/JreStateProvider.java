@@ -7,14 +7,14 @@ package ru.spbau.launch.util;
  */
 public interface JreStateProvider {
 
-    boolean isReady();
+  boolean isReady();
 
-    void setReady();
+  void setReady();
 
-    void setUnready();
+  void setUnready();
 
-    boolean tryStartDownloading();
+  boolean tryStartDownloading();
 
-    void cancelDownload();
+  void cancelDownload();
 
 }
