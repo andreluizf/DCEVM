@@ -70,12 +70,14 @@ public class JreDownloader {
     new Task.Backgroundable(project, DIALOG_TITLE, true) {
       @Override
       public void run(@NotNull ProgressIndicator indicator) {
-        if (jreUrl == null) {
-          new Notification(DIALOG_TITLE, "Dcevm jre url not found", ERROR_DESCRIPTION, NotificationType.ERROR).notify(project);
-          return;
-        }
         indicator.setText(INDICATOR_TEXT);
         try {
+          if (jreUrl == null) {
+            new Notification(DIALOG_TITLE, "Dcevm jre url not found", ERROR_DESCRIPTION, NotificationType.ERROR).notify(project);
+            indicator.cancel();
+            indicator.checkCanceled();
+          }
+
           File dcevmRoot = new File(homeDir);
           FileUtil.createDirectory(dcevmRoot);
           File downloadedFile = HttpDownloader.download(jreUrl, homeDir, indicator);
