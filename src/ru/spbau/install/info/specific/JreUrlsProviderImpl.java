@@ -12,6 +12,7 @@ public class JreUrlsProviderImpl implements JreUrlsProvider {
   private static final String LOCALHOST_TEST = "http://localhost:8000/j2re-dcevm-linux64.zip";
   private static final String DROPBOX_LINUX_64_URL = "https://dl.dropboxusercontent.com/u/62224416/j2re-dcevm-linux64.zip";
   private static final String DROPBOX_MACOS_64_URL = "https://dl.dropboxusercontent.com/u/62224416/j2re-macos64.zip";
+  private static final String DROPBOX_LINUX_32_URL = "https://dl.dropboxusercontent.com/u/62224416/j2re-dcevm-linux32.zip";
   public static final String LOCAL_DCEVM_DOWNLOAD = "local.dcevm.download";
 
   @Override
@@ -23,6 +24,11 @@ public class JreUrlsProviderImpl implements JreUrlsProvider {
   }
 
   @Override
+  public String getLinux32Url() {
+    return DROPBOX_LINUX_32_URL;
+  }
+
+    @Override
   public String getMacOsUrl() {
     return DROPBOX_MACOS_64_URL;
   }

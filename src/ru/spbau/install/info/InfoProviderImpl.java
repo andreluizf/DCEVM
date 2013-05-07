@@ -18,7 +18,7 @@ import java.io.File;
  */
 public class InfoProviderImpl implements InfoProvider {
 
-  private static final String JRE_DIRECTORY = "DCEVM_JRE";
+  private static final String JRE_DIRECTORY = "JRE";
   private static final String INSTALL_DIRECTORY = getPluginDirectory() + File.separator + JRE_DIRECTORY;
 
   private JreUrlsProvider myUrlProvider;
@@ -39,7 +39,7 @@ public class InfoProviderImpl implements InfoProvider {
   public String getJreUrl() {
     if (SystemInfo.is32Bit) {
       if (SystemInfo.isLinux) {
-        return null;
+        return myUrlProvider.getLinux32Url();
       }
     }
     if (SystemInfo.is64Bit) {
