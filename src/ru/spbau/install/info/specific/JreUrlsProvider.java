@@ -7,6 +7,6 @@ package ru.spbau.install.info.specific;
  */
 public interface JreUrlsProvider {
   String getLinux64Url();
-
+  String getLinux32Url();
   String getMacOsUrl();
 }

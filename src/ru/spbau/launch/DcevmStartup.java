@@ -19,6 +19,7 @@ import ru.spbau.launch.util.RunConfigurationManipulator;
  * Time: 3:54 AM
  */
 public class DcevmStartup implements StartupActivity {
+  private static final String ALWAYS_DOWNLOAD_PROPERTY = "always.download.dcevm";
 
   @NotNull
   private JreStateProvider myStateProvider;
@@ -29,9 +30,7 @@ public class DcevmStartup implements StartupActivity {
 
   @Override
   public void runActivity(final Project project) {
-    System.out.println("DcevmStartup " + myStateProvider);
-
-    if (SystemProperties.getBooleanProperty("always.download.dcevm", false)) {
+    if (SystemProperties.getBooleanProperty(ALWAYS_DOWNLOAD_PROPERTY, false)) {
       myStateProvider.setUnready();
     }
 

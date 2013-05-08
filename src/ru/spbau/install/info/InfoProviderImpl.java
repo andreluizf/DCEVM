@@ -4,7 +4,6 @@ package ru.spbau.install.info;
 import com.intellij.ide.plugins.IdeaPluginDescriptor;
 import com.intellij.ide.plugins.PluginManager;
 import com.intellij.openapi.extensions.PluginId;
-import com.intellij.openapi.util.SystemInfo;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.spbau.install.info.specific.JreUrlsProvider;
@@ -18,7 +17,7 @@ import java.io.File;
  */
 public class InfoProviderImpl implements InfoProvider {
 
-  private static final String JRE_DIRECTORY = "DCEVM_JRE";
+  private static final String JRE_DIRECTORY = "JRE";
   private static final String INSTALL_DIRECTORY = getPluginDirectory() + File.separator + JRE_DIRECTORY;
 
   private JreUrlsProvider myUrlProvider;
@@ -37,19 +36,19 @@ public class InfoProviderImpl implements InfoProvider {
   @Override
   @Nullable
   public String getJreUrl() {
-    if (SystemInfo.is32Bit) {
-      if (SystemInfo.isLinux) {
-        return null;
-      }
-    }
-    if (SystemInfo.is64Bit) {
-      if (SystemInfo.isLinux) {
-        return myUrlProvider.getLinux64Url();
-      }
-      if (SystemInfo.isMac) {
-        return myUrlProvider.getMacOsUrl();
-      }
-    }
+    //if (SystemInfo.is32Bit) {
+    //  if (SystemInfo.isLinux) {
+    //    return myUrlProvider.getLinux32Url();
+    //  }
+    //}
+    //if (SystemInfo.is64Bit) {
+    //  if (SystemInfo.isLinux) {
+    //    return myUrlProvider.getLinux64Url();
+    //  }
+    //  if (SystemInfo.isMac) {
+    //    return myUrlProvider.getMacOsUrl();
+    //  }
+    //}
     return null;
   }
 
