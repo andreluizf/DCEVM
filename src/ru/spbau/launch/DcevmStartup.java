@@ -46,7 +46,7 @@ public class DcevmStartup implements StartupActivity {
       return;
     }
 
-    if (myStateProvider.tryStartDownloading()) {
+    if (!myStateProvider.isDownloading()) {
       ApplicationManager.getApplication().runReadAction(new Runnable() {
         @Override
         public void run() {

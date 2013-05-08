@@ -15,10 +15,20 @@ import ru.spbau.launch.util.RunConfigurationManipulator;
  * Time: 3:52 PM
  */
 public class DownloadManager {
+  private JreStateProvider myJreStateProvider;
+
+  public DownloadManager(JreStateProvider jreStateProvider) {
+    myJreStateProvider = jreStateProvider;
+  }
 
   public void requestForDownload(final Project project) {
     Notifications.Bus.register(ConfirmationNotification.GROUP_DISPLAY_ID, NotificationDisplayType.STICKY_BALLOON);
-    ConfirmationNotification confirmation = new ConfirmationNotification(project, new DownloadAndPatch(project), null);
+    ConfirmationNotification confirmation = new ConfirmationNotification(project, new DownloadAndPatch(project), new Runnable() {
+      @Override
+      public void run() {
+        myJreStateProvider.cancelDownload();
+      }
+    });
     confirmation.askForPermission();
   }
 
@@ -32,6 +42,9 @@ public class DownloadManager {
 
     @Override
     public void run() {
+      if (!myJreStateProvider.tryStartDownloading()) {
+        return;
+      }
       JreDownloader jreDownloader = ServiceManager.getService(JreDownloader.class);
       jreDownloader.setOnSuccessCallback(new Runnable() {
         @Override
@@ -55,5 +68,7 @@ public class DownloadManager {
       jreDownloader.download(myProject);
     }
   }
+
+
 
 }

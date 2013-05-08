@@ -54,7 +54,9 @@ public class RunConfigurationManipulator {
 
   public static void replaceTemplateWith(Project project, String alterJrePath, boolean enabled) {
     ApplicationConfiguration templateApplicationConfig = getTemplateApplicationConfiguration(project);
-    patchConfiguration(templateApplicationConfig, alterJrePath, enabled);
+    if (templateApplicationConfig.ALTERNATIVE_JRE_PATH == null && !templateApplicationConfig.ALTERNATIVE_JRE_PATH_ENABLED) {
+      patchConfiguration(templateApplicationConfig, alterJrePath, enabled);
+    }
   }
 
   private static void patchConfiguration(ApplicationConfiguration configuration, String alterJrePath, boolean enabled) {
