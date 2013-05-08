@@ -6,6 +6,7 @@ import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.project.Project;
 import ru.spbau.install.download.util.ConfirmationNotification;
+import ru.spbau.launch.DcevmStartup;
 import ru.spbau.launch.util.JreStateProvider;
 import ru.spbau.launch.util.RunConfigurationManipulator;
 
@@ -55,6 +56,7 @@ public class DownloadManager {
               RunConfigurationManipulator manipulator = ServiceManager.getService(RunConfigurationManipulator.class);
               manipulator.replaceTemplateConfigurationOnOpenedProjects();
               manipulator.createNewDcevmConfiguration(myProject);
+              DcevmStartup.setProjectPatched(myProject);
             }
           });
         }
