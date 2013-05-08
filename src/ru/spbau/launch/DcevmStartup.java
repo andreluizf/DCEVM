@@ -35,7 +35,6 @@ public class DcevmStartup implements StartupActivity {
     }
 
     if (myStateProvider.isReady()) {
-      System.out.println("Dcevm jre is ready");
       ApplicationManager.getApplication().invokeLater(new Runnable() {
         @Override
         public void run() {
@@ -46,7 +45,6 @@ public class DcevmStartup implements StartupActivity {
               service.replaceTemplateConfiguration(project);
               for (RunConfiguration rc: RunManager.getInstance(project).getConfigurations(ApplicationConfigurationType.getInstance())) {
                 if (rc.getName().equals(RunConfigurationManipulator.NEW_RUN_CONFIGURATION_NAME)) {
-                  System.out.println("oops found");
                   return;
                 }
               }
@@ -58,10 +56,7 @@ public class DcevmStartup implements StartupActivity {
       return;
     }
 
-    System.out.println("Dcevm not ready");
-
     if (!myStateProvider.isDownloadingOrDownloaded()) {
-      System.out.println("Dcevm is downloading");
       ApplicationManager.getApplication().runReadAction(new Runnable() {
         @Override
         public void run() {

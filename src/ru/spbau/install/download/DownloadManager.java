@@ -52,10 +52,6 @@ public class DownloadManager {
           ApplicationManager.getApplication().runWriteAction(new Runnable() {
             @Override
             public void run() {
-              System.out.println("Success jre is now ready");
-              myJreStateProvider.setReady();
-
-
               RunConfigurationManipulator manipulator = ServiceManager.getService(RunConfigurationManipulator.class);
               manipulator.replaceTemplateConfigurationOnOpenedProjects();
               manipulator.createNewDcevmConfiguration(myProject);

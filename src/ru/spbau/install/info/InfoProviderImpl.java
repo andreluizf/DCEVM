@@ -4,6 +4,7 @@ package ru.spbau.install.info;
 import com.intellij.ide.plugins.IdeaPluginDescriptor;
 import com.intellij.ide.plugins.PluginManager;
 import com.intellij.openapi.extensions.PluginId;
+import com.intellij.openapi.util.SystemInfo;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.spbau.install.info.specific.JreUrlsProvider;
@@ -36,19 +37,19 @@ public class InfoProviderImpl implements InfoProvider {
   @Override
   @Nullable
   public String getJreUrl() {
-    //if (SystemInfo.is32Bit) {
-    //  if (SystemInfo.isLinux) {
-    //    return myUrlProvider.getLinux32Url();
-    //  }
-    //}
-    //if (SystemInfo.is64Bit) {
-    //  if (SystemInfo.isLinux) {
-    //    return myUrlProvider.getLinux64Url();
-    //  }
-    //  if (SystemInfo.isMac) {
-    //    return myUrlProvider.getMacOsUrl();
-    //  }
-    //}
+    if (SystemInfo.is32Bit) {
+      if (SystemInfo.isLinux) {
+        return myUrlProvider.getLinux32Url();
+      }
+    }
+    if (SystemInfo.is64Bit) {
+      if (SystemInfo.isLinux) {
+        return myUrlProvider.getLinux64Url();
+      }
+      if (SystemInfo.isMac) {
+        return myUrlProvider.getMacOsUrl();
+      }
+    }
     return null;
   }
 
