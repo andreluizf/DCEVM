@@ -21,7 +21,7 @@ public class JreStateProviderImpl implements JreStateProvider {
   }
 
   @Override
-  public boolean isDownloading() {
+  public boolean isDownloadingOrDownloaded() {
     return downloadStarted.get();
   }
 

@@ -35,14 +35,20 @@ public class RunConfigurationManipulator {
     replaceTemplateWith(project, myInfoProvider.getInstallDirectory(), true);
   }
 
-  public void createNewConfiguration(Project project) {
+  public void createNewDcevmConfiguration(Project project) {
     RunnerAndConfigurationSettings newRunConfiguration;
-    newRunConfiguration =
-      RunManager.getInstance(project).createRunConfiguration(NEW_RUN_CONFIGURATION_NAME, getApplicationConfigurationFactory());
+    RunnerAndConfigurationSettings selected = RunManager.getInstance(project).getSelectedConfiguration();
+    if (selected != null && getApplicationConfigurationFactory().equals(selected.getFactory())) {
+      newRunConfiguration = RunManager.getInstance(project).createConfiguration(selected.getConfiguration().clone(), getApplicationConfigurationFactory());
+      newRunConfiguration.setName(NEW_RUN_CONFIGURATION_NAME);
+    } else {
+      newRunConfiguration = RunManager.getInstance(project).createRunConfiguration(NEW_RUN_CONFIGURATION_NAME, getApplicationConfigurationFactory());
+    }
+    patchConfiguration((ApplicationConfiguration)newRunConfiguration.getConfiguration(), myInfoProvider.getInstallDirectory(), true);
     ((RunManagerImpl)RunManager.getInstance(project)).addConfiguration(newRunConfiguration, false);
   }
 
-  private static ConfigurationFactory getApplicationConfigurationFactory() {
+  public static ConfigurationFactory getApplicationConfigurationFactory() {
     return ApplicationConfigurationType.getInstance().getConfigurationFactories()[0];
   }
 

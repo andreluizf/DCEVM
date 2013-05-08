@@ -1,5 +1,8 @@
 package ru.spbau.launch;
 
+import com.intellij.execution.RunManager;
+import com.intellij.execution.application.ApplicationConfigurationType;
+import com.intellij.execution.configurations.RunConfiguration;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.project.Project;
@@ -26,11 +29,14 @@ public class DcevmStartup implements StartupActivity {
 
   @Override
   public void runActivity(final Project project) {
+    System.out.println("DcevmStartup " + myStateProvider);
+
     if (SystemProperties.getBooleanProperty("always.download.dcevm", false)) {
       myStateProvider.setUnready();
     }
 
     if (myStateProvider.isReady()) {
+      System.out.println("Dcevm jre is ready");
       ApplicationManager.getApplication().invokeLater(new Runnable() {
         @Override
         public void run() {
@@ -39,6 +45,13 @@ public class DcevmStartup implements StartupActivity {
             public void run() {
               RunConfigurationManipulator service = ServiceManager.getService(RunConfigurationManipulator.class);
               service.replaceTemplateConfiguration(project);
+              for (RunConfiguration rc: RunManager.getInstance(project).getConfigurations(ApplicationConfigurationType.getInstance())) {
+                if (rc.getName().equals(RunConfigurationManipulator.NEW_RUN_CONFIGURATION_NAME)) {
+                  System.out.println("oops found");
+                  return;
+                }
+              }
+              service.createNewDcevmConfiguration(project);
             }
           });
         }
@@ -46,7 +59,10 @@ public class DcevmStartup implements StartupActivity {
       return;
     }
 
-    if (!myStateProvider.isDownloading()) {
+    System.out.println("Dcevm not ready");
+
+    if (!myStateProvider.isDownloadingOrDownloaded()) {
+      System.out.println("Dcevm is downloading");
       ApplicationManager.getApplication().runReadAction(new Runnable() {
         @Override
         public void run() {

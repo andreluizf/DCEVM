@@ -15,7 +15,7 @@ public interface JreStateProvider {
 
   boolean tryStartDownloading();
 
-  boolean isDownloading();
+  boolean isDownloadingOrDownloaded();
 
   void cancelDownload();
 
