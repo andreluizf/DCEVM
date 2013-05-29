@@ -36,7 +36,7 @@ public class ConfirmationNotification {
     UIUtil.invokeLaterIfNeeded(new Runnable() {
       @Override
       public void run() {
-        new Notification(GROUP_DISPLAY_ID, "Dcevm jre download confirmation", getText(), NotificationType.INFORMATION,
+        new Notification(GROUP_DISPLAY_ID, "No DCEVM is found at local environment", getText(), NotificationType.INFORMATION,
                          new DownloadConfirmationListener()).notify(myProject);
       }
     });
@@ -65,8 +65,7 @@ public class ConfirmationNotification {
   }
 
   private static String getText() {
-    return "<html>Please click <a href='" + AGREE + "'>download</a> to download DCEVM jre " +
-           "or <a href='" + DECLINE + "'>decline</a> otherwise.";
+    return "<html>Would you like to <a href='" + AGREE + "'>download</a> it?";
   }
 
 }

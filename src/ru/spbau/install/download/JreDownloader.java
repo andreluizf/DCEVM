@@ -26,10 +26,10 @@ import java.io.IOException;
  */
 public class JreDownloader {
   public static final String DIALOG_TITLE = "DCEVM plugin";
-  public static final String INDICATOR_TEXT = "Downloading DCEVM jre";
+  public static final String INDICATOR_TEXT = "Downloading DCEVM";
   public static final String CANCEL_TEXT = "Stop downloading";
-  public static final String DOWNLOAD_ERROR = "Dcevm download error";
-  public static final String ERROR_DESCRIPTION = "IO error while downloading happened";
+  public static final String DOWNLOAD_ERROR = "DCEVM download error";
+  public static final String ERROR_DESCRIPTION = "I/O error occurred during DCEVM downloading";
 
   private JreStateProvider jreState;
 
@@ -73,7 +73,7 @@ public class JreDownloader {
         indicator.setText(INDICATOR_TEXT);
         try {
           if (jreUrl == null) {
-            new Notification(DIALOG_TITLE, "Dcevm jre url not found", ERROR_DESCRIPTION, NotificationType.ERROR).notify(project);
+            new Notification(DIALOG_TITLE, "DCEVM jre url not found", ERROR_DESCRIPTION, NotificationType.ERROR).notify(project);
             indicator.cancel();
             indicator.checkCanceled();
           }

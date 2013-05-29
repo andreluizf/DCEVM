@@ -6,21 +6,34 @@ import com.intellij.execution.application.ApplicationConfiguration;
 import com.intellij.execution.application.ApplicationConfigurationType;
 import com.intellij.execution.configurations.ConfigurationFactory;
 import com.intellij.execution.impl.RunManagerImpl;
+import com.intellij.execution.ui.JreProvider;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.project.ProjectManager;
+import com.intellij.openapi.util.io.FileUtil;
+import org.jetbrains.annotations.NotNull;
 import ru.spbau.install.info.InfoProvider;
+
+import java.io.File;
 
 /**
  * User: user
  * Date: 4/25/13
  * Time: 3:10 PM
  */
-public class RunConfigurationManipulator {
+public class RunConfigurationManipulator implements JreProvider {
+  
   public static final String NEW_RUN_CONFIGURATION_NAME = "DCEVM";
   private InfoProvider myInfoProvider;
 
   public RunConfigurationManipulator(InfoProvider infoProvider) {
     this.myInfoProvider = infoProvider;
+  }
+
+  @NotNull
+  @Override
+  public String getJrePath() {
+    File f = new File(myInfoProvider.getInstallDirectory());
+    return f.isDirectory() ? f.getAbsolutePath() : "";
   }
 
   public void replaceTemplateConfigurationOnOpenedProjects() {

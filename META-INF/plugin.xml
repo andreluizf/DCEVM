@@ -1,44 +1,26 @@
 <idea-plugin version="2">
-  <id>com.yourcompany.unique.plugin.id</id>
-  <name>Plugin display name here</name>
+  <id>dcevm</id>
+  <name>DCEVM integration</name>
   <version>1.0</version>
-  <vendor email="support@yourcompany.com" url="http://www.yourcompany.com">YourCompany</vendor>
+  <vendor email="lepenkiny@gmail.com">Yaroslav Lepenkin</vendor>
 
   <description><![CDATA[
-      Enter short description for your plugin here.<br>
-      <small>most HTML tags may be used</small>
+      Provides integration with <a href="http://ssw.jku.at/dcevm/">DCEVM</a><br/>
+      (enhanced JVM with ability to perform 'true hotswap')
       ]]></description>
 
   <change-notes><![CDATA[
-      Add change notes here.<br>
-      <small>most HTML tags may be used</small>
+      initial
       ]]>
   </change-notes>
 
-  <!-- please see http://confluence.jetbrains.net/display/IDEADEV/Build+Number+Ranges for description -->
-  <idea-version since-build="107.105"/>
-
-  <!-- please see http://confluence.jetbrains.net/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
-       on how to target different products -->
-  <!-- uncomment to enable plugin in all products
-  <depends>com.launch.modules.lang</depends>
-  -->
-
-  <application-components>
-    <!-- Add your application components here -->
-  </application-components>
-
-
-  <actions>
-    <!-- Add your actions here -->
-  </actions>
+  <idea-version since-build="129.524"/>
 
   <extensions defaultExtensionNs="com.intellij">
-    <!-- Add your extensions here -->
-    <postStartupActivity implementation="ru.spbau.launch.DcevmStartup"></postStartupActivity>
+    <postStartupActivity implementation="ru.spbau.launch.DcevmStartup"/>
+    
+    <jreProvider implementation="ru.spbau.launch.util.RunConfigurationManipulator"/>
 
-
-    <!-- Declare the application level service -->
     <applicationService serviceInterface="ru.spbau.launch.util.JreStateProvider" serviceImplementation="ru.spbau.launch.util.JreStateProviderImpl">
     </applicationService>
     <applicationService serviceInterface="ru.spbau.install.download.util.HttpDownloader" serviceImplementation="ru.spbau.install.download.util.HttpDownloader">
@@ -53,8 +35,6 @@
     </applicationService>
     <applicationService serviceInterface="ru.spbau.install.info.specific.JreUrlsProvider" serviceImplementation="ru.spbau.install.info.specific.JreUrlsProviderImpl">
     </applicationService>
-
-
 
   </extensions>
 

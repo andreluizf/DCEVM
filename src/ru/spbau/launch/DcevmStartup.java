@@ -9,6 +9,7 @@ import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.startup.StartupActivity;
 import com.intellij.util.SystemProperties;
+import com.intellij.util.ui.UIUtil;
 import org.jetbrains.annotations.NotNull;
 import ru.spbau.install.download.DownloadManager;
 import ru.spbau.launch.util.JreStateProvider;
@@ -41,7 +42,6 @@ public class DcevmStartup implements StartupActivity {
     PropertiesComponent.getInstance(project).setValue(IS_PROJECT_PATCHED, Boolean.FALSE.toString());
   }
 
-
   @Override
   public void runActivity(final Project project) {
     if (SystemProperties.getBooleanProperty(ALWAYS_DOWNLOAD_PROPERTY, false)) {
@@ -49,12 +49,12 @@ public class DcevmStartup implements StartupActivity {
       setProjectUnpatched(project);
     }
 
-    if (isProjectPatched(project)) {
-      return;
-    }
-
     if (myStateProvider.isReady()) {
-      ApplicationManager.getApplication().invokeLater(new Runnable() {
+      if (isProjectPatched(project)) {
+        return;
+      }
+      
+      UIUtil.invokeLaterIfNeeded(new Runnable() {
         @Override
         public void run() {
           ApplicationManager.getApplication().runWriteAction(new Runnable() {
@@ -63,7 +63,11 @@ public class DcevmStartup implements StartupActivity {
               RunConfigurationManipulator service = ServiceManager.getService(RunConfigurationManipulator.class);
               service.replaceTemplateConfiguration(project);
               setProjectPatched(project);
-              for (RunConfiguration rc: RunManager.getInstance(project).getConfigurations(ApplicationConfigurationType.getInstance())) {
+              ApplicationConfigurationType configurationType = ApplicationConfigurationType.getInstance();
+              if (configurationType == null) {
+                return;
+              }
+              for (RunConfiguration rc : RunManager.getInstance(project).getConfigurations(configurationType)) {
                 if (rc.getName().equals(RunConfigurationManipulator.NEW_RUN_CONFIGURATION_NAME)) {
                   return;
                 }
