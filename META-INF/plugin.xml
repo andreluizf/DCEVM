@@ -17,25 +17,16 @@
   <idea-version since-build="129.524"/>
 
   <extensions defaultExtensionNs="com.intellij">
-    <postStartupActivity implementation="ru.spbau.launch.DcevmStartup"/>
+    <postStartupActivity implementation="ru.spbau.dcevm.DcevmStartup"/>
     
-    <jreProvider implementation="ru.spbau.launch.util.RunConfigurationManipulator"/>
-
-    <applicationService serviceInterface="ru.spbau.launch.util.JreStateProvider" serviceImplementation="ru.spbau.launch.util.JreStateProviderImpl">
-    </applicationService>
-    <applicationService serviceInterface="ru.spbau.install.download.util.HttpDownloader" serviceImplementation="ru.spbau.install.download.util.HttpDownloader">
-    </applicationService>
-    <applicationService serviceInterface="ru.spbau.install.info.InfoProvider" serviceImplementation="ru.spbau.install.info.InfoProviderImpl">
-    </applicationService>
-    <applicationService serviceInterface="ru.spbau.install.download.JreDownloader" serviceImplementation="ru.spbau.install.download.JreDownloader">
-    </applicationService>
-    <applicationService serviceInterface="ru.spbau.launch.util.RunConfigurationManipulator" serviceImplementation="ru.spbau.launch.util.RunConfigurationManipulator">
-    </applicationService>
-    <applicationService serviceInterface="ru.spbau.install.download.DownloadManager" serviceImplementation="ru.spbau.install.download.DownloadManager">
-    </applicationService>
-    <applicationService serviceInterface="ru.spbau.install.info.specific.JreUrlsProvider" serviceImplementation="ru.spbau.install.info.specific.JreUrlsProviderImpl">
-    </applicationService>
-
+    <jreProvider implementation="ru.spbau.dcevm.DcevmJreProvider"/>
+    
+    <applicationService serviceImplementation="ru.spbau.dcevm.DcevmFileManager"/>
+    <applicationService serviceImplementation="ru.spbau.dcevm.DcevmNetworkManager"/>
+    <applicationService serviceImplementation="ru.spbau.dcevm.DcevmNotificationManager"/>
+    <applicationService serviceImplementation="ru.spbau.dcevm.DcevmRunConfigurationManager"/>
+    <applicationService serviceImplementation="ru.spbau.dcevm.DcevmUrlProvider"/>
+    
   </extensions>
 
 </idea-plugin>
