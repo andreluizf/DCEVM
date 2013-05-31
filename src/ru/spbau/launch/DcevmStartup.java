@@ -12,6 +12,7 @@ import com.intellij.util.SystemProperties;
 import com.intellij.util.ui.UIUtil;
 import org.jetbrains.annotations.NotNull;
 import ru.spbau.install.download.DownloadManager;
+import ru.spbau.install.info.InfoProvider;
 import ru.spbau.launch.util.JreStateProvider;
 import ru.spbau.launch.util.RunConfigurationManipulator;
 
@@ -23,12 +24,14 @@ import ru.spbau.launch.util.RunConfigurationManipulator;
 public class DcevmStartup implements StartupActivity {
   private static final String ALWAYS_DOWNLOAD_PROPERTY = "always.download.dcevm";
   public static final String IS_PROJECT_PATCHED = "DCEVM_IS_PROJECT_PATCHED";
+  private final InfoProvider myInfoProvider;
 
   @NotNull
   private JreStateProvider myStateProvider;
 
-  public DcevmStartup(@NotNull JreStateProvider stateProvider) {
+  public DcevmStartup(@NotNull JreStateProvider stateProvider, @NotNull InfoProvider provider) {
     myStateProvider = stateProvider;
+    myInfoProvider = provider;
   }
 
   public static boolean isProjectPatched(Project project) {
@@ -44,8 +47,21 @@ public class DcevmStartup implements StartupActivity {
 
   @Override
   public void runActivity(final Project project) {
+
+    if (myStateProvider.isReady()) {
+      new Thread(new Runnable() {
+          @Override
+          public void run() {
+            Float version = myInfoProvider.getCurrentServerJreVersion();
+            if (version != null && version > myStateProvider.getVersion()) {
+              myStateProvider.setUnready();
+            }
+          }
+      }).start();
+    }
+
     if (SystemProperties.getBooleanProperty(ALWAYS_DOWNLOAD_PROPERTY, false)) {
-      myStateProvider.setUnready();
+      myStateProvider.setDeleted();
       setProjectUnpatched(project);
     }
 
@@ -61,7 +77,7 @@ public class DcevmStartup implements StartupActivity {
             @Override
             public void run() {
               RunConfigurationManipulator service = ServiceManager.getService(RunConfigurationManipulator.class);
-              service.replaceTemplateConfiguration(project);
+              //service.replaceTemplateConfiguration(project);
               setProjectPatched(project);
               ApplicationConfigurationType configurationType = ApplicationConfigurationType.getInstance();
               if (configurationType == null) {

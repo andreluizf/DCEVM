@@ -16,6 +16,10 @@ public interface InfoProvider {
   @Nullable
   String getJreUrl();
 
+  @Nullable
+  Float getCurrentServerJreVersion();
+
   @NotNull
   String getInstallDirectory();
+
 }

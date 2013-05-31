@@ -1,14 +1,11 @@
 package ru.spbau.install.download.util;
 
 import com.intellij.ide.IdeBundle;
-import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.util.io.UrlConnectionUtil;
 import com.intellij.util.net.HttpConfigurable;
 import com.intellij.util.net.NetUtils;
-import ru.spbau.launch.util.JreStateProvider;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -56,12 +53,6 @@ public class HttpDownloader {
 
       final File newFile = new File(file.getParentFile(), DOWNLOADED_FILE);
       FileUtil.rename(file, newFile);
-      ApplicationManager.getApplication().runReadAction(new Runnable() {
-        @Override
-        public void run() {
-          ServiceManager.getService(JreStateProvider.class).setReady();
-        }
-      });
       return newFile;
     }
     finally {

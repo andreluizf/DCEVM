@@ -1,10 +1,12 @@
 package ru.spbau.install.download.util;
 
 import com.intellij.notification.*;
+import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.util.ui.UIUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.spbau.launch.util.JreStateProvider;
 
 import javax.swing.event.HyperlinkEvent;
 
@@ -33,10 +35,17 @@ public class ConfirmationNotification {
   }
 
   public void askForPermission() {
+    final String question;
+    if (ServiceManager.getService(JreStateProvider.class).getVersion() > 0) {
+      question = "A new version of DCEVM is available";
+    } else {
+      question = "No DCEVM is found at local environment";
+    }
+
     UIUtil.invokeLaterIfNeeded(new Runnable() {
       @Override
       public void run() {
-        new Notification(GROUP_DISPLAY_ID, "No DCEVM is found at local environment", getText(), NotificationType.INFORMATION,
+        new Notification(GROUP_DISPLAY_ID, question, getText(), NotificationType.INFORMATION,
                          new DownloadConfirmationListener()).notify(myProject);
       }
     });

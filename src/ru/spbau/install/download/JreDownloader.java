@@ -3,6 +3,7 @@ package ru.spbau.install.download;
 import com.intellij.notification.Notification;
 import com.intellij.notification.NotificationType;
 import com.intellij.openapi.application.ApplicationManager;
+import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.progress.ProcessCanceledException;
 import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.progress.Task;
@@ -73,16 +74,21 @@ public class JreDownloader {
         indicator.setText(INDICATOR_TEXT);
         try {
           if (jreUrl == null) {
-            new Notification(DIALOG_TITLE, "DCEVM jre url not found", ERROR_DESCRIPTION, NotificationType.ERROR).notify(project);
+            new Notification(DIALOG_TITLE, "DCEVM is not available for current platform yet", ERROR_DESCRIPTION, NotificationType.ERROR).notify(project);
             indicator.cancel();
             indicator.checkCanceled();
           }
 
           File dcevmRoot = new File(homeDir);
+          if (dcevmRoot.exists()) {
+            FileUtil.delete(dcevmRoot);
+            jreState.setDeleted();
+          }
           FileUtil.createDirectory(dcevmRoot);
           File downloadedFile = HttpDownloader.download(jreUrl, homeDir, indicator);
 
-          jreState.setReady();
+
+          jreState.setReady(ServiceManager.getService(InfoProvider.class).getCurrentServerJreVersion());
 
           ZipUtil.extract(downloadedFile, dcevmRoot, null);
           FileUtil.delete(downloadedFile);

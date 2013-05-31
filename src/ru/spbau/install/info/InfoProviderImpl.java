@@ -5,11 +5,13 @@ import com.intellij.ide.plugins.IdeaPluginDescriptor;
 import com.intellij.ide.plugins.PluginManager;
 import com.intellij.openapi.extensions.PluginId;
 import com.intellij.openapi.util.SystemInfo;
+import com.intellij.util.net.HttpConfigurable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.spbau.install.info.specific.JreUrlsProvider;
 
-import java.io.File;
+import java.io.*;
+import java.net.HttpURLConnection;
 
 /**
  * User: yarik
@@ -51,6 +53,40 @@ public class InfoProviderImpl implements InfoProvider {
       }
     }
     return null;
+  }
+
+  @Nullable
+  @Override
+  public Float getCurrentServerJreVersion() {
+    String jreUrl = getJreUrl();
+    if (jreUrl == null)
+      return null;
+    String url = jreUrl.substring(0, jreUrl.lastIndexOf(".")) + ".version";
+
+    HttpURLConnection connection = null;
+    Float version = null;
+    try {
+      connection = HttpConfigurable.getInstance().openHttpConnection(url);
+      final InputStream is = connection.getInputStream();
+      if (is == null) {
+        throw new IOException("Failed to open connection");
+      }
+      BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+      try {
+        version = Float.valueOf(reader.readLine());
+      }
+      catch (NumberFormatException e) {
+      }
+      is.close();
+    }
+    catch (IOException e) {
+      return null;
+    }
+    finally {
+      if (connection != null) connection.disconnect();
+    }
+
+    return version;
   }
 
   @Override
