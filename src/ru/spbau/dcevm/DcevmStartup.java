@@ -10,6 +10,7 @@ import com.intellij.openapi.progress.ProgressManager;
 import com.intellij.openapi.progress.Task;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.startup.StartupActivity;
+import com.intellij.openapi.util.SystemInfo;
 import com.intellij.openapi.util.io.FileUtilRt;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.util.io.ZipUtil;
@@ -69,7 +70,6 @@ public class DcevmStartup implements StartupActivity {
       return;
     }
 
-
     myNotificationManager.askPermissionToDownloadDcevm(project, new Runnable() {
       @Override
       public void run() {
@@ -94,6 +94,18 @@ public class DcevmStartup implements StartupActivity {
     }
   }
 
+  private void setJavaExecutableIfNeeded(@NotNull final File javaExecutable, @NotNull final Project project) {
+    if (!SystemInfo.isWindows) {
+      try {
+        System.out.println(javaExecutable.getAbsolutePath());
+        FileUtilRt.setExecutableAttribute(javaExecutable.getAbsolutePath(), true);
+      }
+      catch (IOException e) {
+        myNotificationManager.notifyCannotSetJavaExecutable(project);
+      }
+    }
+  }
+
   private void download(@NotNull final Project project, @NotNull final String url) {
     ProgressManager.getInstance().run(new Task.Backgroundable(project, "Downloading " + DcevmConstants.DCEVM_NAME, true) {
       @Override
@@ -109,6 +121,7 @@ public class DcevmStartup implements StartupActivity {
             try {
               ZipUtil.extract(tmpFile, myFileManager.getDcevmDir(), null);
               patchProjectIfNecessary(project);
+              setJavaExecutableIfNeeded(myFileManager.getJavaExecutable(), project);
             }
             catch (IOException e) {
               LOG.warn("Unexpected error on unzipping DCEVM", e);
@@ -131,7 +144,6 @@ public class DcevmStartup implements StartupActivity {
         });
       }
     });
-
   }
 
   private boolean isAvailableLocally() {

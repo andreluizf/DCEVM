@@ -19,6 +19,11 @@ public class DcevmNotificationManager {
                      NotificationType.INFORMATION).notify(project);
   }
 
+  public void notifyCannotSetJavaExecutable(@NotNull Project project) {
+    new Notification(DcevmConstants.DCEVM_NAME, DcevmConstants.DCEVM_NAME, "Can't set execution permission for java runtime",
+                     NotificationType.INFORMATION).notify(project);
+  }
+
   public void askPermissionToDownloadDcevm(@NotNull Project project, @NotNull final Runnable callback) {
     Notification notification = new Notification(
       DcevmConstants.DCEVM_NAME,

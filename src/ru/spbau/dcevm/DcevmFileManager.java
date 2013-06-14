@@ -15,6 +15,7 @@ import java.io.File;
 public class DcevmFileManager {
 
   @NotNull private static final String JRE_DIR_NAME = "jre";
+  @NotNull private static final String JAVA_EXEC = "bin" + File.separator + "java";
   
   @NotNull private static final NotNullLazyValue<String> PLUGIN_HOME = new NotNullLazyValue<String>() {
     @NotNull
@@ -31,4 +32,10 @@ public class DcevmFileManager {
   public File getDcevmDir() {
     return new File(PLUGIN_HOME.getValue(), JRE_DIR_NAME);
   }
+
+  @NotNull
+  public File getJavaExecutable() {
+    return new File(getDcevmDir(), JAVA_EXEC);
+  }
+
 }
