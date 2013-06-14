@@ -97,7 +97,6 @@ public class DcevmStartup implements StartupActivity {
   private void setJavaExecutableIfNeeded(@NotNull final File javaExecutable, @NotNull final Project project) {
     if (!SystemInfo.isWindows) {
       try {
-        System.out.println(javaExecutable.getAbsolutePath());
         FileUtilRt.setExecutableAttribute(javaExecutable.getAbsolutePath(), true);
       }
       catch (IOException e) {
