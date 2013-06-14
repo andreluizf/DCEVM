@@ -17,7 +17,8 @@ import java.io.File;
 public class DcevmFileManager {
 
   @NotNull private static final String JAVA_EXEC = "bin" + File.separator + "java";
-  
+  @NotNull private static final String JRE_DIR_NAME = DcevmConstants.DCEVM_NAME + "_JRE";
+
   @NotNull private static final NotNullLazyValue<String> PLUGIN_HOME = new NotNullLazyValue<String>() {
     @NotNull
     @Override
@@ -28,10 +29,10 @@ public class DcevmFileManager {
       return descriptor.getPath().getAbsolutePath(); 
     }
   };
-  
+
   @NotNull
   public File getDcevmDir() {
-    File home = new File(PathUtil.getParentPath(PLUGIN_HOME.getValue()), DcevmConstants.DCEVM_NAME + "_JRE");
+    File home = new File(PathUtil.getParentPath(PLUGIN_HOME.getValue()), JRE_DIR_NAME);
     FileUtilRt.createDirectory(home);
     return home;
   }
