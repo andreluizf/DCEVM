@@ -1,7 +1,7 @@
 <idea-plugin version="2">
   <id>dcevm</id>
   <name>DCEVM integration</name>
-  <version>1.0</version>
+  <version>1.1</version>
   <vendor email="lepenkiny@gmail.com">Yaroslav Lepenkin</vendor>
 
   <description><![CDATA[
@@ -10,7 +10,7 @@
       ]]></description>
 
   <change-notes><![CDATA[
-      initial
+      Windows 32- and 64-bit DCEVM is provided;
       ]]>
   </change-notes>
 
