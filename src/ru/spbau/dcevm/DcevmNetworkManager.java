@@ -54,10 +54,7 @@ public class DcevmNetworkManager {
         InputStream in = null;
         OutputStream out = null;
         try {
-          in = UrlConnectionUtil.getConnectionInputStream(connection, indicator);
-          if (in == null) {
-            throw new IOException("No connection");
-          }
+          in = UrlConnectionUtil.getConnectionInputStreamWithException(connection, indicator);
           indicator.setIndeterminate(contentLength <= 0);
           out = new BufferedOutputStream(new FileOutputStream(destination, false));
           NetUtils.copyStreamContent(indicator, in, out, contentLength);
