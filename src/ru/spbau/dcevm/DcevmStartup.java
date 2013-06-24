@@ -83,7 +83,7 @@ public class DcevmStartup implements StartupActivity {
     if (remoteSize <= 0) {
       return;
     }
-    int localSize = PropertiesComponent.getInstance(project).getOrInitInt(DcevmConstants.LOCAL_DCEVM_SIZE_KEY, -1);
+    int localSize = PropertiesComponent.getInstance().getOrInitInt(DcevmConstants.LOCAL_DCEVM_SIZE_KEY, -1);
     if (localSize != remoteSize) {
       myNotificationManager.askPermissionToUpdateDcevm(project, new Runnable() {
         @Override
@@ -115,7 +115,7 @@ public class DcevmStartup implements StartupActivity {
           @Override
           public void run() {
             long length = tmpFile.length();
-            PropertiesComponent.getInstance(project).setValue(DcevmConstants.LOCAL_DCEVM_SIZE_KEY, String.valueOf(length));
+            PropertiesComponent.getInstance().setValue(DcevmConstants.LOCAL_DCEVM_SIZE_KEY, String.valueOf(length));
             FileUtilRt.delete(myFileManager.getDcevmDir());
             try {
               ZipUtil.extract(tmpFile, myFileManager.getDcevmDir(), null);
