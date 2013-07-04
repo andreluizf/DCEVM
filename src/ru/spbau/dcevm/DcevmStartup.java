@@ -85,6 +85,8 @@ public class DcevmStartup implements StartupActivity {
     }
     int localSize = PropertiesComponent.getInstance().getOrInitInt(DcevmConstants.LOCAL_DCEVM_SIZE_KEY, -1);
     if (localSize != remoteSize) {
+      String message = "DCEVM JRE update launched. Previous downloaded size was %d. Size on server now is: %d";
+      LOG.info(String.format(message, localSize, remoteSize));
       myNotificationManager.askPermissionToUpdateDcevm(project, new Runnable() {
         @Override
         public void run() {
@@ -115,6 +117,7 @@ public class DcevmStartup implements StartupActivity {
           @Override
           public void run() {
             long length = tmpFile.length();
+            LOG.info("DCEVM JRE downloaded. Size: " + length);
             PropertiesComponent.getInstance().setValue(DcevmConstants.LOCAL_DCEVM_SIZE_KEY, String.valueOf(length));
             FileUtilRt.delete(myFileManager.getDcevmDir());
             try {
