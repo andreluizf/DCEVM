@@ -5,6 +5,7 @@ import com.intellij.notification.NotificationListener;
 import com.intellij.notification.NotificationType;
 import com.intellij.openapi.project.Project;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.swing.event.HyperlinkEvent;
 
@@ -21,6 +22,11 @@ public class DcevmNotificationManager {
 
   public void notifyCannotSetJavaExecutable(@NotNull Project project) {
     new Notification(DcevmConstants.DCEVM_NAME, DcevmConstants.DCEVM_NAME, "Can't set execution permission for java runtime",
+                     NotificationType.INFORMATION).notify(project);
+  }
+
+  public void notifyServerError(@Nullable Project project) {
+    new Notification(DcevmConstants.DCEVM_NAME, DcevmConstants.DCEVM_NAME, "Can't download DCEVM because of server error",
                      NotificationType.INFORMATION).notify(project);
   }
 

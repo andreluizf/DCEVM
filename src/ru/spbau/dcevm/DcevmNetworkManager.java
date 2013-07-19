@@ -2,6 +2,7 @@ package ru.spbau.dcevm;
 
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.progress.ProgressIndicator;
+import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Ref;
 import com.intellij.util.Consumer;
 import com.intellij.util.io.UrlConnectionUtil;
@@ -19,7 +20,12 @@ import java.net.HttpURLConnection;
 public class DcevmNetworkManager {
   
   private static final Logger LOG = Logger.getInstance("#" + DcevmNetworkManager.class.getName());
-  
+  private DcevmNotificationManager myDcevmNotificationManager;
+
+  public DcevmNetworkManager(@NotNull DcevmNotificationManager dcevmNotificationManager) {
+    myDcevmNotificationManager = dcevmNotificationManager;
+  }
+
   /**
    * Tries to derive size of the content referenced by the given url.
    * <p/>
@@ -51,7 +57,8 @@ public class DcevmNetworkManager {
     return result.get();
   }
 
-  public void download(@NotNull final File destination,
+  public void download(@NotNull final Project project,
+                       @NotNull final File destination,
                        @NotNull final String url,
                        @NotNull final ProgressIndicator indicator,
                        @NotNull final Runnable callback)
@@ -60,11 +67,17 @@ public class DcevmNetworkManager {
       @Override
       public void consume(HttpURLConnection connection) {
         final int contentLength = connection.getContentLength();
-        
+
         boolean ok = false;
         InputStream in = null;
         OutputStream out = null;
+
         try {
+          //Surprisingly Dropbox can return instead some 5** error.
+          if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
+            myDcevmNotificationManager.notifyServerError(project);
+            return;
+          }
           in = UrlConnectionUtil.getConnectionInputStreamWithException(connection, indicator);
           indicator.setIndeterminate(contentLength <= 0);
           out = new BufferedOutputStream(new FileOutputStream(destination, false));

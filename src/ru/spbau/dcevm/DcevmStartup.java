@@ -113,7 +113,7 @@ public class DcevmStartup implements StartupActivity {
       public void run(@NotNull ProgressIndicator indicator) {
         final File tmpFile = new File(FileUtilRt.getTempDirectory(), DcevmConstants.DCEVM_NAME);
         FileUtilRt.delete(tmpFile);
-        myNetworkManager.download(tmpFile, url, indicator, new Runnable() {
+        myNetworkManager.download(project, tmpFile, url, indicator, new Runnable() {
           @Override
           public void run() {
             long length = tmpFile.length();
