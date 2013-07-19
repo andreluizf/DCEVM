@@ -1,7 +1,7 @@
 <idea-plugin version="2">
   <id>dcevm</id>
   <name>DCEVM integration</name>
-  <version>1.5</version>
+  <version>1.6</version>
   <vendor email="lepenkiny@gmail.com">Yaroslav Lepenkin</vendor>
 
   <description><![CDATA[
@@ -10,7 +10,7 @@
       ]]></description>
 
   <change-notes><![CDATA[
-      Logging is added
+      Correct unavailable DCEVM distribution processing (used to say that new DCEVM version is available on every project opening)
       ]]>
   </change-notes>
 
