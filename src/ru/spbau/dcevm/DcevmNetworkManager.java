@@ -34,7 +34,18 @@ public class DcevmNetworkManager {
     execute(url, new Consumer<HttpURLConnection>() {
       @Override
       public void consume(HttpURLConnection connection) {
-        result.set(connection.getContentLength());
+        try {
+          int code = connection.getResponseCode();
+          if (code == HttpURLConnection.HTTP_OK) {
+            result.set(connection.getContentLength());
+          } else {
+            throw new IOException("Response code is not ok, but: " + code);
+          }
+        }
+        catch (IOException e) {
+          LOG.info("Returning remote size 0: " + e.getMessage());
+          result.set(0);
+        }
       }
     });
     return result.get();
